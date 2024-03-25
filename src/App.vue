@@ -39,5 +39,7 @@ onMounted(() => {
     <Button type="danger" plain>Danger</Button><br/><br/>
     <Button size="large">Large</Button>
     <Button size="small">Small</Button><br/><br/>
+    <Button size="large" loading>Loading</Button>
+    <Button size="large" icon="arrow-up">Icon</Button><br/><br/>    
   </main>
 </template>
