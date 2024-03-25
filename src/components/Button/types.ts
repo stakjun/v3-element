@@ -13,8 +13,12 @@ export interface ButtonProps {
   round?: boolean;
   /** 是否为圆形按钮 */
   circle?: boolean;
+  /** 是否为加载状态 */
+  loading?: boolean;
   /** 是否为禁用状态 */
   disabled?: boolean;
+  /** 图标 */
+  icon?: string;
   /** 原生 autofocus 属性 */
   autofocus?: boolean;
   /** 原生 type 属性 */
