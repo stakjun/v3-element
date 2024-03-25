@@ -10,6 +10,7 @@ export default defineConfig({
   plugins: [
     vue(),
     vueJsx(),
+    /** 在命令行提示 eslint 问题 */
     eslint()
   ],
   resolve: {
