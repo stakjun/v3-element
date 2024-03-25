@@ -2,11 +2,16 @@
 import { onMounted, ref } from 'vue'
 
 import Button from './components/Button/Button.vue'
+import Icon from './components/Icon/Icon.vue'
 
-const buttonRef = ref<InstanceType<typeof Button> | null>(null);
+const buttonRef = ref<InstanceType<typeof Button> | null>(null)
+const size = ref<any>('3x')
 
 onMounted(() => {
   console.log(buttonRef.value?.ref)
+  setTimeout(() => {
+    size.value = '2xl'
+  }, 2000)
 })
 </script>
 
@@ -14,7 +19,8 @@ onMounted(() => {
   <header>
     <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
   </header>
-
+  
+  <Icon icon="arrow-up" :size="size" type="danger" color="#0e7a0d"/>
   <main>
     <Button ref="buttonRef">Test Button</Button>
     <Button plain>Plain Button</Button>
