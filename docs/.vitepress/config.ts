@@ -1,9 +1,24 @@
 import { defineConfig } from 'vitepress'
+import { containerPreview, componentPreview } from '@vitepress-demo-preview/plugin'
+import { fileURLToPath, URL } from 'node:url'
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
   title: "Vue3 Element",
   description: "基于 Vue3 的组件库",
+  vite: {
+    resolve: {
+      alias: {
+        '@': fileURLToPath(new URL('../../src', import.meta.url))
+      }
+    }
+  },
+  markdown: {
+    config(md) {
+      md.use(containerPreview)
+      md.use(componentPreview)
+    }
+  },
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
     nav: [
