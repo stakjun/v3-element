@@ -1,0 +1,103 @@
+:root {
+  --vk-color-white: #fff;
+  --vk-color-black: #000;
+
+  /* 主色(默认的主题色是明亮友好的蓝色)和辅助色(不同的场景中使用不同的场景颜色 ,例如，危险的颜色表示危险的操作) */
+  --vk-color-primary: #409eff;
+  --vk-color-primary-light-3: #79bbff;
+  --vk-color-primary-light-5: #a0cfff;
+  --vk-color-primary-light-7: #c6e2ff;
+  --vk-color-primary-light-8: #d9ecff;
+  --vk-color-primary-light-9: #ecf5ff;
+  --vk-color-primary-dark-2: #337ecc;
+  --vk-color-success: #67c23a;
+  --vk-color-success-light-3: #95d475;
+  --vk-color-success-light-5: #b3e19d;
+  --vk-color-success-light-7: #d1edc4;
+  --vk-color-success-light-8: #e1f3d8;
+  --vk-color-success-light-9: #f0f9eb;
+  --vk-color-success-dark-2: #529b2e;
+  --vk-color-warning: #e6a23c;
+  --vk-color-warning-light-3: #eebe77;
+  --vk-color-warning-light-5: #f3d19e;
+  --vk-color-warning-light-7: #f8e3c5;
+  --vk-color-warning-light-8: #faecd8;
+  --vk-color-warning-light-9: #fdf6ec;
+  --vk-color-warning-dark-2: #b88230;
+  --vk-color-danger: #f56c6c;
+  --vk-color-danger-light-3: #f89898;
+  --vk-color-danger-light-5: #fab6b6;
+  --vk-color-danger-light-7: #fcd3d3;
+  --vk-color-danger-light-8: #fde2e2;
+  --vk-color-danger-light-9: #fef0f0;
+  --vk-color-danger-dark-2: #c45656;
+  --vk-color-error: #f56c6c;
+  --vk-color-error-light-3: #f89898;
+  --vk-color-error-light-5: #fab6b6;
+  --vk-color-error-light-7: #fcd3d3;
+  --vk-color-error-light-8: #fde2e2;
+  --vk-color-error-light-9: #fef0f0;
+  --vk-color-error-dark-2: #c45656;
+  --vk-color-info: #909399;
+  --vk-color-info-light-3: #b1b3b8;
+  --vk-color-info-light-5: #c8c9cc;
+  --vk-color-info-light-7: #dedfe0;
+  --vk-color-info-light-8: #e9e9eb;
+  --vk-color-info-light-9: #f4f4f5;
+  --vk-color-info-dark-2: #73767a;
+
+  /* 中性色(用于文本、背景和边框颜色) */
+  --vk-bg-color: #fff;
+  --vk-bg-color-page: #f2f3f5;
+  --vk-bg-color-overlay: #fff;
+
+  --vk-text-color-primary: #303133;
+  --vk-text-color-regular: #606266;
+  --vk-text-color-secondary: #909399;
+  --vk-text-color-placeholder: #a8abb2;
+  --vk-text-color-disabled: #c0c4cc;
+
+  --vk-border-color: #dcdfe6;
+  --vk-border-color-light: #e4e7ed;
+  --vk-border-color-lighter: #ebeef5;
+  --vk-border-color-extra-light: #f2f6fc;
+  --vk-border-color-dark: #d4d7de;
+  --vk-border-color-darker: #cdd0d6;
+
+  --vk-fill-color: #f0f2f5;
+  --vk-fill-color-light: #f5f7fa;
+  --vk-fill-color-lighter: #fafafa;
+  --vk-fill-color-extra-light: #fafcff;
+  --vk-fill-color-dark: #ebedf0;
+  --vk-fill-color-darker: #e6e8eb;
+  --vk-fill-color-blank: #fff;
+
+  /* border */
+  --vk-border-width: 1px;
+  --vk-border-style: solid;
+  --vk-border-color-hover: var(--vk-text-color-disabled);
+  --vk-border: var(--vk-border-width) var(--vk-border-style) var(--vk-border-color);
+  --vk-border-radius-base: 4px;
+  --vk-border-radius-small: 2px;
+  --vk-border-radius-round: 20px;
+  --vk-border-radius-circle: 100%;
+
+  /* font */
+  --vk-font-size-extra-large: 20px;
+  --vk-font-size-large: 18px;
+  --vk-font-size-medium: 16px;
+  --vk-font-size-base: 14px;
+  --vk-font-size-small: 13px;
+  --vk-font-size-extra-small: 12px;
+  --vk-font-family: "Hvkvetica Neue", Hvkvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "\5fae\8f6f\96c5\9ed1", Arial, sans-serif;
+  --vk-font-weight-primary: 500;
+
+  /* disabled */
+  --vk-disabled-bg-color: var(--vk-fill-color-light);
+  --vk-disabled-text-color: var(--vk-text-color-placeholder);
+  --vk-disabled-border-color: var(--vk-border-color-light);
+  
+  /* animation */
+  --vk-transition-duration: .3s;
+  --vk-transition-duration-fast: .2s;
+}
