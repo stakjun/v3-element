@@ -6,6 +6,7 @@ import { fileURLToPath, URL } from 'node:url'
 export default defineConfig({
   title: "Vue3 Element",
   description: "基于 Vue3 的组件库",
+  base: '/vue3-element/',
   vite: {
     resolve: {
       alias: {

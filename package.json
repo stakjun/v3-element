@@ -1,5 +1,5 @@
 {
-  "name": "v-element",
+  "name": "v3-element",
   "version": "1.0.0",
   "description": "Vue3 component library",
   "type": "module",
@@ -10,12 +10,17 @@
     "UI",
     "Vue3"
   ],
+  "homepage": "https://stakjun.github.io/vue3-element/",
   "repository": {
     "type": "git",
     "url": "https://github.com/stakjun/vue3-element"
   },
-  "files": ["dist"],
-  "sideEffects": ["dist/index.css"],
+  "files": [
+    "dist"
+  ],
+  "sideEffects": [
+    "dist/index.css"
+  ],
   "main": "./dist/umd/vue3-element.umd.cjs",
   "module": "./dist/es/vue3-element.js",
   "types": "./dist/types/index.d.ts",
@@ -44,7 +49,7 @@
     "docs:build": "vitepress build docs",
     "docs:preview": "vitepress preview docs",
     "prepublishOnly": "npm run build",
-    "deploy": "deploy.sh"
+    "deploy": "sh deploy.sh"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.5.1",
@@ -80,7 +85,7 @@
     "vite-plugin-dts": "^3.7.3",
     "vite-plugin-eslint": "^1.8.1",
     "vitepress": "^1.0.0-alpha.65",
-    "vue-tsc": "^2.0.6",
-    "vue": "^3.4.21"
+    "vue": "^3.4.21",
+    "vue-tsc": "^2.0.6"
   }
 }
