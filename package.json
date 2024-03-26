@@ -6,22 +6,29 @@
   "files": [
     "dist"
   ],
+  "sideEffects": ["dist/index.css"],
   "main": "./dist/umd/vue3-element.umd.cjs",
   "module": "./dist/es/vue3-element.js",
   "types": "./dist/types/src/index.d.ts",
   "exports": {
     ".": {
       "import": "./dist/es/vue3-element.js",
-      "require": "./dist/umd/vue3-element.umd.cjs"
+      "require": "./dist/umd/vue3-element.umd.cjs",
+      "types": "./dist/types/src/index.d.ts"
+    },
+    "./dist/": {
+      "import": "./dist/",
+      "require": "./dist/"
     }
   },
   "scripts": {
     "dev": "vite",
-    "build": "run-p build-umd build-es",
+    "build": "npm run build-only && npm run move-style",
     "preview": "vite preview",
-    "build-only": "vite build",
+    "build-only": "run-p build-umd build-es",
     "build-umd": "vite build --config vite.umd.config.ts",
     "build-es": "vite build --config vite.es.config.ts",
+    "move-style": "move-file dist/es/index.css dist/index.css",
     "type-check": "vue-tsc --build --force",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
     "docs:dev": "vitepress dev docs",
@@ -31,7 +38,9 @@
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.5.1",
     "@fortawesome/free-solid-svg-icons": "^6.5.1",
-    "@fortawesome/vue-fontawesome": "^3.0.6",
+    "@fortawesome/vue-fontawesome": "^3.0.6"
+  },
+  "peerDependencies": {
     "vue": "^3.4.21"
   },
   "devDependencies": {
@@ -48,6 +57,7 @@
     "eslint": "^8.57.0",
     "eslint-plugin-vue": "^9.17.0",
     "lodash-es": "^4.17.21",
+    "move-file-cli": "^3.0.0",
     "npm-run-all2": "^6.1.2",
     "postcss-color-mix": "^1.1.0",
     "postcss-each": "^1.1.0",
@@ -59,6 +69,7 @@
     "vite-plugin-dts": "^3.7.3",
     "vite-plugin-eslint": "^1.8.1",
     "vitepress": "^1.0.0-alpha.65",
-    "vue-tsc": "^2.0.6"
+    "vue-tsc": "^2.0.6",
+    "vue": "^3.4.21"
   }
 }
