@@ -13,19 +13,22 @@ export default defineConfig({
     vueJsx(),
     /** 在命令行提示 eslint 问题 */
     eslint(),
-    dts({
-      tsconfigPath: './tsconfig.build.json'
-    })
+    /** 这里必须引入vite-plugin-dts插件，否则不会生成d.ts文件 */
+    dts()
   ],
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))
     }
   },
+  // 打包配置
   build: {
     lib: {
+      // 指定组件编译入口文件
       entry: resolve(__dirname, 'src/index.ts'),
+      // 组件库名称
       name: 'Vue3Element',
+      // 文件名称
       fileName: 'vue3-element'
     },
     rollupOptions: {

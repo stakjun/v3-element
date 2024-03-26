@@ -1,5 +1,5 @@
 import type { App } from "vue"
-import Button from "@/components/Button/Button.vue"
+import VkButton from "@/components/Button/Button.vue"
 
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { fas } from '@fortawesome/free-solid-svg-icons'
@@ -8,7 +8,7 @@ import './styles/index.css'
 library.add(fas)
 
 const components = [
-  Button
+  VkButton
 ]
 
 const install = (app: App) => {
@@ -17,11 +17,20 @@ const install = (app: App) => {
   })
 }
 
+/** 这里将组件导出，是为了在单独使用组件时，可以按需引入 */
 export {
-  install,
-  Button
+  VkButton
 }
 
 export default {
   install
+}
+
+/**
+ * 这里是重点，需要将这些组件在ts中声明为全局组件；
+ */
+declare module "vue" {
+  export interface GlobalComponents {
+      VkButton: typeof VkButton
+  }
 }

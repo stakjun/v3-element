@@ -1,20 +1,29 @@
 {
-  "name": "vue3-element",
-  "version": "0.0.0",
-  "private": true,
+  "name": "v-element",
+  "version": "1.0.0",
+  "description": "Vue3 component library",
   "type": "module",
-  "files": [
-    "dist"
+  "author": "Stake Luo",
+  "license": "MIT",
+  "keywords": [
+    "Component",
+    "UI",
+    "Vue3"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/stakjun/vue3-element"
+  },
+  "files": ["dist"],
   "sideEffects": ["dist/index.css"],
   "main": "./dist/umd/vue3-element.umd.cjs",
   "module": "./dist/es/vue3-element.js",
-  "types": "./dist/types/src/index.d.ts",
+  "types": "./dist/types/index.d.ts",
   "exports": {
     ".": {
       "import": "./dist/es/vue3-element.js",
       "require": "./dist/umd/vue3-element.umd.cjs",
-      "types": "./dist/types/src/index.d.ts"
+      "types": "./dist/types/index.d.ts"
     },
     "./dist/": {
       "import": "./dist/",
@@ -33,7 +42,8 @@
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
     "docs:dev": "vitepress dev docs",
     "docs:build": "vitepress build docs",
-    "docs:preview": "vitepress preview docs"
+    "docs:preview": "vitepress preview docs",
+    "prepublishOnly": "npm run build"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.5.1",
