@@ -36,19 +36,15 @@
     }
   },
   "scripts": {
-    "dev": "vite",
+    "prepublishOnly": "npm run build",
     "build": "npm run build-only && npm run move-style",
-    "preview": "vite preview",
     "build-only": "run-p build-umd build-es",
     "build-umd": "vite build --config vite.umd.config.ts",
     "build-es": "vite build --config vite.es.config.ts",
     "move-style": "move-file dist/es/index.css dist/index.css",
-    "type-check": "vue-tsc --build --force",
-    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
     "docs:dev": "vitepress dev docs",
     "docs:build": "vitepress build docs",
     "docs:preview": "vitepress preview docs",
-    "prepublishOnly": "npm run build",
     "deploy": "sh deploy.sh"
   },
   "dependencies": {
