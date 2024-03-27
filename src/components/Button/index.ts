@@ -1,10 +1,10 @@
 import type { App } from "vue"
-import Button from "./Button.vue"
+import VkButton from "./Button.vue"
 
-Button.install = (app: App) => {
-  app.component(Button.name, Button)
+VkButton.install = (app: App) => {
+  app.component(VkButton.name, VkButton)
 }
 
-export default Button
+export default VkButton
 
 export * from './types'
