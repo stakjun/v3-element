@@ -80,7 +80,7 @@
     "vite": "^5.1.6",
     "vite-plugin-dts": "^3.7.3",
     "vite-plugin-eslint": "^1.8.1",
-    "vitepress": "^1.0.0-alpha.65",
+    "vitepress": "1.0.0-alpha.65",
     "vue": "^3.4.21",
     "vue-tsc": "^2.0.6"
   }

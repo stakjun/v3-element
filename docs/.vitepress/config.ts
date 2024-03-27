@@ -4,9 +4,9 @@ import { fileURLToPath, URL } from 'node:url'
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
-  title: "Vue3 Element",
+  title: "V3 Element",
   description: "基于 Vue3 的组件库",
-  base: '/vue3-element/',
+  base: '/v3-element/',
   vite: {
     resolve: {
       alias: {
@@ -22,29 +22,22 @@ export default defineConfig({
   },
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
+    logo: '/img/logo.jpg',
     nav: [
-      { text: 'Home', link: '/' },
-      { text: 'Examples', link: '/markdown-examples' }
+      { text: '安装', link: '/components/' },
+      { text: '组件', link: '/components/button' }
     ],
-
     sidebar: [
-      {
-        text: 'Examples',
-        items: [
-          { text: 'Markdown Examples', link: '/markdown-examples' },
-          { text: 'Runtime API Examples', link: '/api-examples' }
-        ]
-      },
       {
         text: 'Basic 基础组件',
         items: [
-          { text: 'Button 按钮', link: '/components/button' },
+          { text: 'Button 按钮', link: '/components/button' }
         ]
-      }
+      },
     ],
 
     socialLinks: [
-      { icon: 'github', link: 'https://github.com/vuejs/vitepress' }
+      { icon: 'github', link: 'https://github.com/stakjun/v3-element' }
     ]
   }
 })

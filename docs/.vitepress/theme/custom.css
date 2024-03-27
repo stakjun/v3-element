@@ -4,6 +4,8 @@
   --vp-c-brand-lighter: var(--vk-color-primary-light-5);
   --vp-c-brand-dark: var(--vk-color-primary-dark-2);
   --vp-c-brand-darker: #265F99;
+  --vp-layout-max-width: 1640px;
+  --vp-code-font-size: 0.97em;
 
   --component-preview-bg: var(--vp-code-block-bg);
   --component-preview-soft: var(--vp-code-block-bg-light);
@@ -15,4 +17,51 @@ body {
 
 h1, h2, h3, h4, h5, h6, p {
   color: var(--vp-c-text-1);
+}
+
+.VPContent .VPDoc.has-aside .container .content {
+  padding: 0;
+}
+
+.VPContent .VPDoc.has-aside .container .aside .content {
+  padding-left:16px;
+}
+
+.VPContent .VPDoc.has-aside .container .content .content-container {
+  max-width: none;
+}
+
+.vitepress-demo-preview__element-plus__container>.vitepress-demo-preview-preview {
+  padding: 20px 20px;
+}
+
+.vp-doc table {
+  width: 100%;
+  display: table;
+}
+
+
+.VPSidebar .nav .group .item .text {
+  font-size: 17px;
+}
+
+.VPSidebar .nav .group .items .item .text {
+  font-size: 13px;
+}
+
+.VPSidebarItem.is-active.has-active .item a {
+  border-radius: 8px;
+  background-color: rgba(64, 158, 255, .1);
+}
+
+.VPSidebarItem.is-active.has-active .item a .text {
+  font-weight: 600;
+}
+
+.VPSidebarItem .items {
+  margin-top: 5px;
+}
+
+.VPSidebarItem .items .item a {
+  padding: 4px 15px;
 }

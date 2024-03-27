@@ -17,7 +17,7 @@
   >
     <Icon icon="spinner" spin v-if="loading" />
     <Icon :icon="icon" v-if="icon" />
-    <span>
+    <span v-if="$slots.default">
       <slot />
     </span>
   </button>

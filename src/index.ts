@@ -1,5 +1,6 @@
 import type { App } from "vue"
-import VkButton from "@/components/Button/Button.vue"
+import VkButton from "@/components/Button"
+import VkIcon from "@/components/Icon"
 
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { fas } from '@fortawesome/free-solid-svg-icons'
@@ -8,7 +9,8 @@ import './styles/index.css'
 library.add(fas)
 
 const components = [
-  VkButton
+  VkButton,
+  VkIcon
 ]
 
 const install = (app: App) => {
@@ -31,6 +33,7 @@ export default {
  */
 declare module "vue" {
   export interface GlobalComponents {
-      VkButton: typeof VkButton
+      VkButton: typeof VkButton,
+      VkIcon: typeof VkIcon
   }
 }

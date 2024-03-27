@@ -72,6 +72,7 @@
 
   /*circle*/
   &.is-circle {
+    width: 32px;
     border-radius: 50%;
     padding: 8px;
   }
@@ -88,6 +89,10 @@
   }
 
   [class*=vk-icon] + span {
+    margin-left: 6px;
+  }
+
+  [class*=vk-icon] + .vk-icon {
     margin-left: 6px;
   }
 }
@@ -117,6 +122,9 @@
     --vk-button-hover-bg-color: var(--vk-color-$(val));
     --vk-button-hover-border-color: var(--vk-color-$(val));
     --vk-button-active-text-color: var(--vk-color-white);
+    --vk-button-disabled-text-color: var(--vk-color-$(val)-light-5);
+    --vk-button-disabled-bg-color: var(--vk-color-$(val)-light-9);
+    --vk-button-disabled-border-color: var(--vk-color-$(val)-light-8);
   }
 }
 
@@ -126,6 +134,11 @@
   padding: 12px 19px;
   font-size: var(--vk-font-size-base);
   border-radius: var(--vk-border-radius-base);
+
+  &.is-circle {
+    width: var(--vk-button-size);
+    padding: 12px;
+  }
 }
 
 .vk-button--small {
@@ -134,5 +147,10 @@
   padding: 5px 11px;
   font-size: 12px;
   border-radius: calc(var(--vk-border-radius-base) - 1px);
+
+  &.is-circle {
+    width: var(--vk-button-size);
+    padding: 5px;
+  }
 }
 

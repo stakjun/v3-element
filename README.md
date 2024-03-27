@@ -1,4 +1,4 @@
-# vue3-element
+# v3-element
 
 基于 Vue3 + TypeScript 开发的组件库
 
