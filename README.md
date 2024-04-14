@@ -26,7 +26,7 @@ createApp(App).use(V3Element).mount('#app');
 
 ```vue
 <template>
-	<vk-button type="primary">我是 VkButton</vk-button>
+  <vk-button type="primary">我是 VkButton</vk-button>
 </template>
 ```
 
@@ -40,7 +40,7 @@ import 'v3-element/dist/index.css';
 
 ```vue
 <template>
-	<vk-button type="primary">我是 VkButton</vk-button>
+  <vk-button type="primary">我是 VkButton</vk-button>
 </template>
 
 <script setup lang="ts">

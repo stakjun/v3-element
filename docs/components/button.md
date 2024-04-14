@@ -1,6 +1,6 @@
 ---
 title: Button 按钮
-description: Button组件文档
+description: Button 组件文档
 ---
 
 # Button 按钮
@@ -39,7 +39,7 @@ description: Button组件文档
 
 ## Button API
 
-### Button 属性
+### 属性
 
 | 属性名      | 说明                  | 类型                                                             | 默认值 |
 | :---------- | :-------------------- | :--------------------------------------------------------------- | :----- |
@@ -53,13 +53,13 @@ description: Button组件文档
 | autofocus   | 原生 `autofocus` 属性 | `boolean`                                                        | false  |
 | native-type | 原生 `type` 属性      | `enum` - `'button'\| 'submit'\| 'reset'`                         | button |
 
-### Button 插槽
+### 插槽
 
 | 插槽名  | 说明           |
 | :------ | :------------- |
 | default | 自定义默认内容 |
 
-### Button 实例
+### 实例
 
 | 名称 | 说明           | 类型                     |
 | :--- | :------------- | :----------------------- |

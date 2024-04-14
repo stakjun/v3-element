@@ -1,0 +1,69 @@
+.vk-alert {
+	--vk-alert-padding: 8px 16px;
+	--vk-alert-top-margin: 20px;
+	--vk-alert-border-radius-base: var(--vk-border-radius-base);
+	--vk-alert-bg-color: var(--vk-color-white);
+	--vk-alert-content-font-size: 13px;
+	--vk-alert-text-color: var(--vk-text-color-primary);
+}
+
+.vk-alert {
+	display: flex;
+	align-items: center;
+	padding: var(--vk-alert-padding);
+	margin: 0;
+	margin-top: var(--vk-alert-top-margin);
+	border-radius: var(--vk-alert-border-radius-base);
+	background-color: var(--vk-alert-bg-color);
+	position: relative;
+
+	.vk-alert__content {
+		font-size: var(--vk-alert-content-font-size);
+		color: var(--vk-alert-text-color);
+		line-height: 18px;
+	}
+
+	.vk-alert__close {
+		position: absolute;
+		top: 12px;
+		right: 15px;
+		cursor: pointer;
+
+		.vk-icon {
+			vertical-align: top;
+		}
+	}
+
+	&.vk-alert--light {
+		.vk-alert__close {
+			color: var(--vk-text-color-placeholder);
+		}
+	}
+
+	&.vk-alert--dark {
+		.vk-alert__close {
+			color: var(--vk-color-white);
+		}
+	}
+}
+
+@each $val in success, warning, info, danger {
+	.vk-alert--$(val).vk-alert--light {
+		--vk-alert-text-color: var(--vk-color-$(val));
+		--vk-alert-bg-color: var(--vk-color-$(val)-light-9);
+	}
+	.vk-alert--$(val).vk-alert--dark {
+		--vk-alert-text-color: var(--vk-color-white);
+		--vk-alert-bg-color: var(--vk-color-$(val));
+	}
+}
+
+.vk-alert-fade-enter-from,
+.vk-alert-fade-leave-to {
+	opacity: 0;
+}
+
+.vk-alert-fade-enter-active,
+.vk-alert-fade-leave-active {
+	transition: opacity var(--vk-transition-duration);
+}
