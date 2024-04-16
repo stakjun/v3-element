@@ -1,9 +1,9 @@
 ---
-title: Alert 按钮
+title: Alert 提示
 description: Alert 组件文档
 ---
 
-# Alert 按钮
+# Alert 提示
 
 用于页面中展示重要的提示信息。
 

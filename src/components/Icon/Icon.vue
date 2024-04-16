@@ -1,13 +1,14 @@
 <template>
-	<i
-		class="vk-icon"
-		:class="{
-			[`vk-icon--${type}`]: type
-		}"
-		:style="customStyle"
-	>
-		<font-awesome-icon v-bind="filteredProps" />
-	</i>
+  <i
+    class="vk-icon"
+    :class="{
+      [`vk-icon--${type}`]: type
+    }"
+    :style="customStyle"
+    v-bind="$attrs"
+  >
+    <font-awesome-icon v-bind="filteredProps" />
+  </i>
 </template>
 
 <script setup lang="ts">
@@ -17,8 +18,8 @@ import { omit } from 'lodash-es';
 import type { IconProps } from './types';
 
 defineOptions({
-	name: 'VkIcon',
-	inheritAttrs: false
+  name: 'VkIcon',
+  inheritAttrs: false
 });
 
 const props = defineProps<IconProps>();
