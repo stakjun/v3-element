@@ -5,11 +5,19 @@ import VkButton from '@/components/Button';
 import VkIcon from '@/components/Icon';
 import VkAlert from '@/components/Alert';
 import { VkCollapse, VkCollapseItem } from '@/components/Collapse';
+import VkTooltip from '@/components/Tooltip';
 import './styles/index.css';
 
 library.add(fas);
 
-const components = [VkButton, VkIcon, VkAlert, VkCollapse, VkCollapseItem];
+const components = [
+  VkButton,
+  VkIcon,
+  VkAlert,
+  VkCollapse,
+  VkCollapseItem,
+  VkTooltip
+];
 
 const install = (app: App) => {
   components.forEach((component) => {
@@ -32,5 +40,6 @@ declare module 'vue' {
     VkButton: typeof VkButton;
     VkIcon: typeof VkIcon;
     VkAlert: typeof VkAlert;
+    VkTooltip: typeof VkTooltip;
   }
 }
