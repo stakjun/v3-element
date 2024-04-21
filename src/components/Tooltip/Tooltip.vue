@@ -1,5 +1,5 @@
 <template>
-  <div class="vk-tooltip" v-on="outerEvents">
+  <div class="vk-tooltip" v-on="outerEvents" ref="popperContainerNode">
     <div class="vk-tooltip__trigger" ref="triggerNode" v-on="events">
       <slot />
     </div>
@@ -13,6 +13,7 @@
 import { reactive, ref, watch } from 'vue';
 import type { TooltipEmits, TooltipProps } from './types';
 import { createPopper, type Instance } from '@popperjs/core';
+import useClickOutside from '@/hooks/useClickOutside';
 
 defineOptions({
   name: 'VkTooltip'
@@ -30,6 +31,8 @@ const isOpen = ref(false);
 const triggerNode = ref<HTMLElement | null>(null);
 /** 内容节点 */
 const popperNode = ref<HTMLElement | null>(null);
+/** 容器节点 */
+const popperContainerNode = ref<HTMLElement | null>(null);
 /** popper 实例 */
 let popperInstance: null | Instance = null;
 
@@ -47,6 +50,12 @@ const togglePopper = () => {
   isOpen.value = !isOpen.value;
   emits('visible-change', isOpen.value);
 };
+
+useClickOutside(popperContainerNode, () => {
+  if (props.trigger === 'click' && isOpen.value) {
+    close();
+  }
+});
 
 /** 动态绑定事件 */
 let events: Record<string, any> = reactive({});
