@@ -1,4 +1,4 @@
-import type { Placement } from '@popperjs/core';
+import type { Options, Placement } from '@popperjs/core';
 
 export interface TooltipProps {
   /** 显示的内容  */
@@ -7,8 +7,19 @@ export interface TooltipProps {
   trigger?: 'hover' | 'click';
   /** 内容出现的位置 */
   placement?: Placement;
+  /** 是否手动触发 */
+  manual?: boolean;
+  /** popper.js 参数 */
+  popperOptions?: Partial<Options>;
+  /** 动画名称 */
+  transition?: string;
 }
 
 export interface TooltipEmits {
   (e: 'visible-change', value: boolean): void;
+}
+
+export interface TooltipInstance {
+  show: () => void;
+  hide: () => void;
 }

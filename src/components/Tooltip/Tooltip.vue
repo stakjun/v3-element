@@ -3,16 +3,18 @@
     <div class="vk-tooltip__trigger" ref="triggerNode" v-on="events">
       <slot />
     </div>
-    <div class="vk-tooltip__popper" ref="popperNode" v-if="isOpen">
-      <slot name="content">{{ content }}</slot>
-    </div>
+    <Transition :name="transition">
+      <div class="vk-tooltip__popper" ref="popperNode" v-if="isOpen">
+        <slot name="content">{{ content }}</slot>
+      </div>
+    </Transition>
   </div>
 </template>
 
 <script setup lang="ts">
-import { reactive, ref, watch } from 'vue';
-import type { TooltipEmits, TooltipProps } from './types';
-import { createPopper, type Instance } from '@popperjs/core';
+import { computed, onUnmounted, reactive, ref, watch } from 'vue';
+import type { TooltipEmits, TooltipInstance, TooltipProps } from './types';
+import { createPopper, placements, type Instance } from '@popperjs/core';
 import useClickOutside from '@/hooks/useClickOutside';
 
 defineOptions({
@@ -21,9 +23,17 @@ defineOptions({
 
 const props = withDefaults(defineProps<TooltipProps>(), {
   placement: 'bottom',
-  trigger: 'hover'
+  trigger: 'hover',
+  transition: 'fade'
 });
 const emits = defineEmits<TooltipEmits>();
+
+const popperOptions = computed(() => {
+  return {
+    placement: props.placement,
+    ...props.popperOptions
+  };
+});
 
 /** 内容区域是否展示 */
 const isOpen = ref(false);
@@ -52,7 +62,7 @@ const togglePopper = () => {
 };
 
 useClickOutside(popperContainerNode, () => {
-  if (props.trigger === 'click' && isOpen.value) {
+  if (props.trigger === 'click' && isOpen.value && !props.manual) {
     close();
   }
 });
@@ -69,16 +79,20 @@ const attachEvents = () => {
     events['click'] = togglePopper;
   }
 };
-attachEvents();
+if (!props.manual) {
+  attachEvents();
+}
 
 watch(
   isOpen,
   (newVal) => {
     if (newVal) {
       if (triggerNode.value && popperNode.value) {
-        popperInstance = createPopper(triggerNode.value, popperNode.value, {
-          placement: props.placement
-        });
+        popperInstance = createPopper(
+          triggerNode.value,
+          popperNode.value,
+          popperOptions.value
+        );
       } else {
         popperInstance?.destroy();
       }
@@ -97,4 +111,25 @@ watch(
     }
   }
 );
+
+watch(
+  () => props.manual,
+  (isManual) => {
+    if (isManual) {
+      events = {};
+      outerEvents = {};
+    } else {
+      attachEvents();
+    }
+  }
+);
+
+onUnmounted(() => {
+  popperInstance?.destroy();
+});
+
+defineExpose<TooltipInstance>({
+  show: open,
+  hide: close
+});
 </script>
