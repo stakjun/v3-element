@@ -13,6 +13,10 @@ export interface TooltipProps {
   popperOptions?: Partial<Options>;
   /** 动画名称 */
   transition?: string;
+  /** 显示延迟 */
+  openDelay?: number;
+  /** 隐藏延迟 */
+  closeDelay?: number;
 }
 
 export interface TooltipEmits {

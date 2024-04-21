@@ -14,8 +14,9 @@
 <script setup lang="ts">
 import { computed, onUnmounted, reactive, ref, watch } from 'vue';
 import type { TooltipEmits, TooltipInstance, TooltipProps } from './types';
-import { createPopper, placements, type Instance } from '@popperjs/core';
+import { createPopper, type Instance } from '@popperjs/core';
 import useClickOutside from '@/hooks/useClickOutside';
+import { debounce } from 'lodash-es';
 
 defineOptions({
   name: 'VkTooltip'
@@ -24,7 +25,9 @@ defineOptions({
 const props = withDefaults(defineProps<TooltipProps>(), {
   placement: 'bottom',
   trigger: 'hover',
-  transition: 'fade'
+  transition: 'fade',
+  openDelay: 0,
+  closeDelay: 0
 });
 const emits = defineEmits<TooltipEmits>();
 
@@ -49,21 +52,38 @@ let popperInstance: null | Instance = null;
 /** 打开 */
 const open = () => {
   isOpen.value = true;
+  emits('visible-change', true);
 };
 /** 关闭 */
 const close = () => {
   isOpen.value = false;
+  emits('visible-change', false);
+};
+
+const openDebounce = debounce(open, props.openDelay);
+const closeDebounce = debounce(close, props.closeDelay);
+
+const openFinal = () => {
+  closeDebounce.cancel();
+  openDebounce();
+};
+const closeFinal = () => {
+  openDebounce.cancel();
+  closeDebounce();
 };
 
 /** 点击 trigger */
 const togglePopper = () => {
-  isOpen.value = !isOpen.value;
-  emits('visible-change', isOpen.value);
+  if (isOpen.value) {
+    closeFinal();
+  } else {
+    openFinal();
+  }
 };
 
 useClickOutside(popperContainerNode, () => {
   if (props.trigger === 'click' && isOpen.value && !props.manual) {
-    close();
+    closeFinal();
   }
 });
 
@@ -73,8 +93,8 @@ let outerEvents: Record<string, any> = reactive({});
 /** 绑定事件 */
 const attachEvents = () => {
   if (props.trigger === 'hover') {
-    events['mouseenter'] = open;
-    outerEvents['mouseleave'] = close;
+    events['mouseenter'] = openFinal;
+    outerEvents['mouseleave'] = closeFinal;
   } else {
     events['click'] = togglePopper;
   }
@@ -129,7 +149,7 @@ onUnmounted(() => {
 });
 
 defineExpose<TooltipInstance>({
-  show: open,
-  hide: close
+  show: openFinal,
+  hide: closeFinal
 });
 </script>
