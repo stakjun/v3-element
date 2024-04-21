@@ -4,7 +4,12 @@
       <slot />
     </div>
     <Transition :name="transition">
-      <div class="vk-tooltip__popper" ref="popperNode" v-if="isOpen">
+      <div
+        class="vk-tooltip__popper"
+        ref="popperNode"
+        v-if="isOpen"
+        @mouseenter="openFinal"
+      >
         <slot name="content">{{ content }}</slot>
         <div id="arrow" data-popper-arrow />
       </div>
@@ -27,8 +32,8 @@ const props = withDefaults(defineProps<TooltipProps>(), {
   placement: 'bottom',
   trigger: 'hover',
   transition: 'fade',
-  openDelay: 0,
-  closeDelay: 0
+  openDelay: 50,
+  closeDelay: 50
 });
 const emits = defineEmits<TooltipEmits>();
 
@@ -55,6 +60,7 @@ const triggerNode = ref<HTMLElement | null>(null);
 const popperNode = ref<HTMLElement | null>(null);
 /** 容器节点 */
 const popperContainerNode = ref<HTMLElement | null>(null);
+
 /** popper 实例 */
 let popperInstance: null | Instance = null;
 
