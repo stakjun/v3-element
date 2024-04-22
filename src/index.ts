@@ -6,6 +6,7 @@ import VkIcon from '@/components/Icon';
 import VkAlert from '@/components/Alert';
 import { VkCollapse, VkCollapseItem } from '@/components/Collapse';
 import VkTooltip from '@/components/Tooltip';
+import VkDropdown from './components/Dropdown';
 import './styles/index.css';
 
 library.add(fas);
@@ -16,7 +17,8 @@ const components = [
   VkAlert,
   VkCollapse,
   VkCollapseItem,
-  VkTooltip
+  VkTooltip,
+  VkDropdown
 ];
 
 const install = (app: App) => {
@@ -26,7 +28,7 @@ const install = (app: App) => {
 };
 
 /** 这里将组件导出，是为了在单独使用组件时，可以按需引入 */
-export { VkButton, VkIcon, VkAlert, VkCollapse, VkCollapseItem };
+export { VkButton, VkIcon, VkAlert, VkCollapse, VkCollapseItem, VkDropdown };
 
 export default {
   install

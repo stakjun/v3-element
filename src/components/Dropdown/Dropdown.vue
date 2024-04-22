@@ -8,6 +8,7 @@
       :open-delay="openDelay"
       :close-delay="closeDelay"
       :manual="manual"
+      :transition="transition"
       @visible-change="visibleChange"
     >
       <slot />

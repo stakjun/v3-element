@@ -40,6 +40,10 @@ export default defineConfig({
         items: [{ text: 'Collapse 折叠面板', link: '/components/collapse' }]
       },
       {
+        text: 'Navigation 导航',
+        items: [{ text: 'Dropdown 下拉菜单', link: '/components/dropdown' }]
+      },
+      {
         text: 'Feedback 反馈组件',
         items: [
           { text: 'Alert 提示', link: '/components/alert' },
