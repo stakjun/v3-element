@@ -53,7 +53,9 @@ defineOptions({
   name: 'VkDropdown'
 });
 
-defineProps<DropdownProps>();
+const props = withDefaults(defineProps<DropdownProps>(), {
+  hideAfterClick: true
+});
 const emits = defineEmits<DropdownEmits>();
 
 /** Tooltip 实例 */
@@ -68,6 +70,9 @@ const itemClick = (item: MenuOption) => {
     return;
   }
   emits('select', item);
+  if (props.hideAfterClick) {
+    tooltipRef.value?.hide();
+  }
 };
 
 defineExpose<DropdownInstance>({
