@@ -3,7 +3,7 @@
   --vp-c-brand-light: var(--vk-color-primary-light-3);
   --vp-c-brand-lighter: var(--vk-color-primary-light-5);
   --vp-c-brand-dark: var(--vk-color-primary-dark-2);
-  --vp-c-brand-darker: #265F99;
+  --vp-c-brand-darker: #265f99;
   --vp-layout-max-width: 1640px;
   --vp-code-font-size: 0.97em;
 
@@ -13,9 +13,16 @@
 
 body {
   color: var(--vp-c-text-1);
+  font-family: var(--vp-font-family-base);
 }
 
-h1, h2, h3, h4, h5, h6, p {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
   color: var(--vp-c-text-1);
 }
 
@@ -24,14 +31,15 @@ h1, h2, h3, h4, h5, h6, p {
 }
 
 .VPContent .VPDoc.has-aside .container .aside .content {
-  padding-left:16px;
+  padding-left: 16px;
 }
 
 .VPContent .VPDoc.has-aside .container .content .content-container {
   max-width: none;
 }
 
-.vitepress-demo-preview__element-plus__container>.vitepress-demo-preview-preview {
+.vitepress-demo-preview__element-plus__container
+  > .vitepress-demo-preview-preview {
   padding: 20px 20px;
 }
 
@@ -39,7 +47,6 @@ h1, h2, h3, h4, h5, h6, p {
   width: 100%;
   display: table;
 }
-
 
 .VPSidebar .nav .group .item .text {
   font-size: 17px;
@@ -51,7 +58,7 @@ h1, h2, h3, h4, h5, h6, p {
 
 .VPSidebarItem.is-active.has-active .item a {
   border-radius: 8px;
-  background-color: rgba(64, 158, 255, .1);
+  background-color: rgba(64, 158, 255, 0.1);
 }
 
 .VPSidebarItem.is-active.has-active .item a .text {
