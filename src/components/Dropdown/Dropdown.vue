@@ -28,7 +28,7 @@
               :id="`dropdown-item-${item.key}`"
               @click="itemClick(item)"
             >
-              {{ item.label }}
+              <RenderVnode :vNode="item.label" />
             </li>
           </template>
         </ul>
@@ -47,6 +47,7 @@ import type {
   DropdownProps,
   MenuOption
 } from './types';
+import RenderVnode from '../Common/RenderVnode';
 
 defineOptions({
   name: 'VkDropdown'
