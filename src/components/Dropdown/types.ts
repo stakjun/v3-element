@@ -14,20 +14,20 @@ export interface MenuOption {
 
 export interface DropdownProps extends TooltipProps {
   menuOptions: MenuOption[];
-  /** 点击以后是否自动隐藏菜单 */
+  /** 是否在点击菜单项后隐藏菜单 */
   hideAfterClick?: boolean;
 }
 
 export interface DropdownEmits {
-  /** 当 Dropdown 展示/隐藏时被触发 */
+  /** 下拉框出现/隐藏时触发 */
   (e: 'visible-change', value: boolean): void;
-  /** 当选择到某一个选项的时候被触发 */
+  /** 点击菜单项触发的事件回调 */
   (e: 'select', value: MenuOption): void;
 }
 
 export interface DropdownInstance {
-  /** 展示 */
+  /** 打开下拉菜单 */
   show: () => void;
-  /** 隐藏 */
+  /** 关闭下拉菜单 */
   hide: () => void;
 }

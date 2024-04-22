@@ -75,8 +75,9 @@ const itemClick = (item: MenuOption) => {
   }
 };
 
+/** defineExpose 是在 setup 时创建的，此时 tooltipRef 还是 null，所以这里采用函数闭包的形式 */
 defineExpose<DropdownInstance>({
-  show: tooltipRef.value?.show!,
-  hide: tooltipRef.value?.hide!
+  show: () => tooltipRef.value?.show(),
+  hide: () => tooltipRef.value?.hide()
 });
 </script>
