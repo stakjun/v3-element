@@ -18,7 +18,7 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref } from 'vue';
+import { onMounted, ref, watch } from 'vue';
 import RenderVnode from '../Common/RenderVnode';
 import Icon from '@/components/Icon';
 import type { MessageProps } from './types';
@@ -48,6 +48,12 @@ const startTimer = () => {
 onMounted(() => {
   visible.value = true;
   startTimer();
+});
+
+watch(visible, (newValue) => {
+  if (!newValue) {
+    props.onDestroy();
+  }
 });
 </script>
 
