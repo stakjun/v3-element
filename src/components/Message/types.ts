@@ -1,4 +1,4 @@
-import type { VNode } from 'vue';
+import type { ComponentInternalInstance, VNode } from 'vue';
 
 export interface MessageProps {
   /** 消息文字 */
@@ -11,6 +11,16 @@ export interface MessageProps {
   type?: 'success' | 'info' | 'warning' | 'error';
   /** 组件隐藏时销毁节点 */
   onDestroy: () => void;
+  /** 弹窗之间的间隔 */
+  offset?: number;
+  id: string;
 }
 
-export type CreateMessageProps = Omit<MessageProps, 'onDestroy'>;
+export type CreateMessageProps = Omit<MessageProps, 'onDestroy' | 'id'>;
+
+export interface MessageContext {
+  id: string;
+  vnode: VNode;
+  vm: ComponentInternalInstance;
+  props: MessageProps;
+}

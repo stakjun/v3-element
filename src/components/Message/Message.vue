@@ -1,12 +1,14 @@
 <template>
   <div
     v-show="visible"
+    ref="messageRef"
     role="alert"
     class="vk-message"
     :class="{
       [`vk-message--${type}`]: type,
       'is-close': showClose
     }"
+    :style="cssStyle"
   >
     <div class="vk-message__content">
       <slot><RenderVnode :vNode="message" v-if="message" /></slot>
@@ -18,10 +20,11 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref, watch } from 'vue';
+import { onMounted, ref, watch, nextTick, computed } from 'vue';
 import RenderVnode from '../Common/RenderVnode';
 import Icon from '@/components/Icon';
 import type { MessageProps } from './types';
+import { getLastBottomOffset } from './method';
 
 defineOptions({
   name: 'VkMessage'
@@ -29,11 +32,29 @@ defineOptions({
 
 const props = withDefaults(defineProps<MessageProps>(), {
   type: 'info',
-  duration: 3000
+  duration: 3000,
+  offset: 20
 });
 
 /** 是否显示 */
 const visible = ref(false);
+
+/**
+ * 每个 Message 组件的位置 top 等于上一个组件的 bottom + offset
+ * 每个 Message 组件的位置 bottom 等于该组件的 top + height
+ */
+const messageRef = ref<HTMLDivElement | null>(null);
+/** 高度 */
+const height = ref(0);
+/** 上一个实例的 bottom，第一个是 0 */
+const lastOffset = computed(() => getLastBottomOffset(props.id));
+/** 该元素的 top */
+const topOffset = computed(() => lastOffset.value + props.offset);
+/** 该元素的 bottom */
+const bottomOffset = computed(() => topOffset.value + height.value);
+const cssStyle = computed(() => ({
+  top: topOffset.value + 'px'
+}));
 
 /** 弹窗关闭倒计时 */
 const startTimer = () => {
@@ -45,15 +66,21 @@ const startTimer = () => {
   }, props.duration);
 };
 
-onMounted(() => {
+onMounted(async () => {
   visible.value = true;
   startTimer();
+  await nextTick();
+  height.value = messageRef.value!.getBoundingClientRect().height;
 });
 
 watch(visible, (newValue) => {
   if (!newValue) {
     props.onDestroy();
   }
+});
+
+defineExpose({
+  bottomOffset
 });
 </script>
 
