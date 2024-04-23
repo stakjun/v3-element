@@ -37,7 +37,7 @@ const visible = ref(false);
 
 /** 弹窗关闭倒计时 */
 const startTimer = () => {
-  if (props.duration) {
+  if (props.duration === 0) {
     return;
   }
   setTimeout(() => {
@@ -59,5 +59,6 @@ onMounted(() => {
   left: 50%;
   transform: translateX(-50%);
   border: 1px solid blue;
+  z-index: 2011;
 }
 </style>
