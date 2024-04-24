@@ -27,6 +27,7 @@ import RenderVnode from '../Common/RenderVnode';
 import Icon from '@/components/Icon';
 import type { MessageProps } from './types';
 import { getLastBottomOffset } from './method';
+import useEventListener from '@/hooks/useEventListener';
 
 defineOptions({
   name: 'VkMessage'
@@ -60,7 +61,6 @@ const cssStyle = computed(() => ({
 }));
 
 let timer: any;
-
 /** 弹窗关闭倒计时 */
 const startTimer = () => {
   if (props.duration === 0) {
@@ -70,10 +70,19 @@ const startTimer = () => {
     visible.value = false;
   }, props.duration);
 };
-
+/** 清楚倒计时 */
 const clearTimer = () => {
   clearTimeout(timer);
 };
+
+/** 支持 Esc 按键关闭弹窗 */
+const keydown = (e: Event) => {
+  const event = e as KeyboardEvent;
+  if (event.code === 'Escape') {
+    visible.value = false;
+  }
+};
+useEventListener(document, 'keydown', keydown);
 
 onMounted(async () => {
   visible.value = true;
