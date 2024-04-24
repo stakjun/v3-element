@@ -1,11 +1,13 @@
 import { h, render, shallowReactive } from 'vue';
 import type { CreateMessageProps, MessageContext } from './types';
 import Message from './Message.vue';
+import useZIndex from '@/hooks/useZIndex';
 
 let seed = 1;
 const instances: MessageContext[] = shallowReactive([]);
 
 export const createMessage = (props: CreateMessageProps) => {
+  const { nextZIndex } = useZIndex();
   const id = `message_${seed++}`;
   const container = document.createElement('div');
   /** 实例销毁 */
@@ -18,9 +20,19 @@ export const createMessage = (props: CreateMessageProps) => {
     instances.splice(idx, 1);
     render(null, container);
   };
+
+  // 手动删除 把 Message 组件暴露的 visible 置为 false
+  const manualDestroy = () => {
+    const instance = instances.find((item) => item.id === id);
+    if (instance) {
+      instance.vm.exposed!.visible.value = false;
+    }
+  };
+
   const newProps = {
     ...props,
     id,
+    zIndex: nextZIndex(),
     onDestroy: destroy
   };
   const vnode = h(Message, newProps);
@@ -40,6 +52,7 @@ export const createMessage = (props: CreateMessageProps) => {
     id,
     vnode,
     vm,
+    destroy: manualDestroy,
     props: newProps
   };
   instances.push(instance);

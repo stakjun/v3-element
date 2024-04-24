@@ -53,7 +53,8 @@ const topOffset = computed(() => lastOffset.value + props.offset);
 /** 该元素的 bottom */
 const bottomOffset = computed(() => topOffset.value + height.value);
 const cssStyle = computed(() => ({
-  top: topOffset.value + 'px'
+  top: topOffset.value + 'px',
+  zIndex: props.zIndex
 }));
 
 /** 弹窗关闭倒计时 */
@@ -80,7 +81,8 @@ watch(visible, (newValue) => {
 });
 
 defineExpose({
-  bottomOffset
+  bottomOffset,
+  visible
 });
 </script>
 

@@ -14,13 +14,18 @@ export interface MessageProps {
   /** 弹窗之间的间隔 */
   offset?: number;
   id: string;
+  zIndex: number;
 }
 
-export type CreateMessageProps = Omit<MessageProps, 'onDestroy' | 'id'>;
+export type CreateMessageProps = Omit<
+  MessageProps,
+  'onDestroy' | 'id' | 'zIndex'
+>;
 
 export interface MessageContext {
   id: string;
   vnode: VNode;
   vm: ComponentInternalInstance;
   props: MessageProps;
+  destroy: () => void;
 }
