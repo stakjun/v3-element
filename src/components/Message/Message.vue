@@ -1,28 +1,34 @@
 <template>
-  <div
-    v-show="visible"
-    ref="messageRef"
-    role="alert"
-    class="vk-message"
-    :class="{
-      [`vk-message--${type}`]: type,
-      'is-close': showClose
-    }"
-    :style="cssStyle"
-    @mouseenter="clearTimer"
-    @mouseleave="startTimer"
+  <Transition
+    :name="transitionName"
+    @after-leave="destroyComponent"
+    @enter="updateHeight"
   >
-    <div class="vk-message__content">
-      <slot><RenderVnode :vNode="message" v-if="message" /></slot>
+    <div
+      v-show="visible"
+      ref="messageRef"
+      role="alert"
+      class="vk-message"
+      :class="{
+        [`vk-message--${type}`]: type,
+        'is-close': showClose
+      }"
+      :style="cssStyle"
+      @mouseenter="clearTimer"
+      @mouseleave="startTimer"
+    >
+      <div class="vk-message__content">
+        <slot><RenderVnode :vNode="message" v-if="message" /></slot>
+      </div>
+      <div class="vk-message__close" v-if="showClose">
+        <Icon @click.stop="visible = false" icon="xmark" />
+      </div>
     </div>
-    <div class="vk-message__close" v-if="showClose">
-      <Icon @click.stop="visible = false" icon="xmark" />
-    </div>
-  </div>
+  </Transition>
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref, watch, nextTick, computed } from 'vue';
+import { onMounted, ref, computed } from 'vue';
 import RenderVnode from '../Common/RenderVnode';
 import Icon from '@/components/Icon';
 import type { MessageProps } from './types';
@@ -36,7 +42,8 @@ defineOptions({
 const props = withDefaults(defineProps<MessageProps>(), {
   type: 'info',
   duration: 3000,
-  offset: 20
+  offset: 20,
+  transitionName: 'fade-up'
 });
 
 /** 是否显示 */
@@ -84,18 +91,24 @@ const keydown = (e: Event) => {
 };
 useEventListener(document, 'keydown', keydown);
 
-onMounted(async () => {
+onMounted(() => {
   visible.value = true;
   startTimer();
-  await nextTick();
-  height.value = messageRef.value!.getBoundingClientRect().height;
 });
 
-watch(visible, (newValue) => {
-  if (!newValue) {
-    props.onDestroy();
-  }
-});
+/** Transtion 动画效果不会生效，因为这里动画还没生效组件就被销毁了，可以放在 Transtion 提供的钩子函数 after-leave  */
+// watch(visible, (newValue) => {
+//   if (!newValue) {
+//     props.onDestroy();
+//   }
+// });
+const destroyComponent = () => {
+  props.onDestroy();
+};
+/** 更新高度 */
+const updateHeight = () => {
+  height.value = messageRef.value!.getBoundingClientRect().height;
+};
 
 defineExpose({
   bottomOffset,

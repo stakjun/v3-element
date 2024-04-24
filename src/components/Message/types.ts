@@ -15,6 +15,8 @@ export interface MessageProps {
   offset?: number;
   id: string;
   zIndex: number;
+  /** 动画名称 */
+  transitionName?: string;
 }
 
 export type CreateMessageProps = Omit<
