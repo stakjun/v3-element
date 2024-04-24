@@ -115,15 +115,3 @@ defineExpose({
   visible
 });
 </script>
-
-<style>
-.vk-message {
-  width: max-content;
-  position: fixed;
-  top: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  border: 1px solid blue;
-  z-index: 2011;
-}
-</style>
