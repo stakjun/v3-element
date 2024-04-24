@@ -27,6 +27,12 @@ description: Message 组件文档
 
 <preview path="../demo/Message/Close.vue" title="可关闭的消息提示" description="Message 组件的可关闭的消息提示"></preview>
 
+## 单独引用
+
+```ts
+import { createMessage } from 'v3-element';
+```
+
 ## API
 
 ### Message 配置项
