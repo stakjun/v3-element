@@ -9,6 +9,8 @@
       'is-close': showClose
     }"
     :style="cssStyle"
+    @mouseenter="clearTimer"
+    @mouseleave="startTimer"
   >
     <div class="vk-message__content">
       <slot><RenderVnode :vNode="message" v-if="message" /></slot>
@@ -57,14 +59,20 @@ const cssStyle = computed(() => ({
   zIndex: props.zIndex
 }));
 
+let timer: any;
+
 /** 弹窗关闭倒计时 */
 const startTimer = () => {
   if (props.duration === 0) {
     return;
   }
-  setTimeout(() => {
+  timer = setTimeout(() => {
     visible.value = false;
   }, props.duration);
+};
+
+const clearTimer = () => {
+  clearTimeout(timer);
 };
 
 onMounted(async () => {
