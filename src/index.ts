@@ -6,7 +6,10 @@ import VkIcon from '@/components/Icon';
 import VkAlert from '@/components/Alert';
 import { VkCollapse, VkCollapseItem } from '@/components/Collapse';
 import VkTooltip from '@/components/Tooltip';
-import VkDropdown from './components/Dropdown';
+import VkDropdown from '@/components/Dropdown';
+import VkMessage from '@/components/Message';
+import { createMessage } from '@/components/Message';
+
 import './styles/index.css';
 
 library.add(fas);
@@ -18,7 +21,8 @@ const components = [
   VkCollapse,
   VkCollapseItem,
   VkTooltip,
-  VkDropdown
+  VkDropdown,
+  VkMessage
 ];
 
 const install = (app: App) => {
@@ -28,7 +32,17 @@ const install = (app: App) => {
 };
 
 /** 这里将组件导出，是为了在单独使用组件时，可以按需引入 */
-export { VkButton, VkIcon, VkAlert, VkCollapse, VkCollapseItem, VkDropdown };
+export {
+  VkButton,
+  VkIcon,
+  VkAlert,
+  VkCollapse,
+  VkCollapseItem,
+  VkTooltip,
+  VkDropdown,
+  VkMessage,
+  createMessage
+};
 
 export default {
   install
@@ -42,6 +56,10 @@ declare module 'vue' {
     VkButton: typeof VkButton;
     VkIcon: typeof VkIcon;
     VkAlert: typeof VkAlert;
+    VkCollapse: typeof VkCollapse;
+    VkCollapseItem: typeof VkCollapseItem;
     VkTooltip: typeof VkTooltip;
+    VkDropdown: typeof VkDropdown;
+    VkMessage: typeof VkMessage;
   }
 }

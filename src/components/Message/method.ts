@@ -60,11 +60,6 @@ export const createMessage = (props: CreateMessageProps) => {
   return instance;
 };
 
-/** 获取上一个实例 */
-export const getLastInstance = () => {
-  return instances[instances.length - 1];
-};
-
 /** 获取上一个实例的 bottom */
 export const getLastBottomOffset = (id: string) => {
   const idx = instances.findIndex((instance) => instance.id === id);

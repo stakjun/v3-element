@@ -8,10 +8,10 @@ export interface MessageProps {
   /** 是否显示关闭按钮 */
   showClose?: boolean;
   /** 消息类型 */
-  type?: 'success' | 'info' | 'warning' | 'error';
+  type?: 'success' | 'info' | 'warning' | 'danger';
   /** 组件隐藏时销毁节点 */
   onDestroy: () => void;
-  /** 弹窗之间的间隔 */
+  /** Message 距离窗口顶部的偏移量 */
   offset?: number;
   id: string;
   zIndex: number;
