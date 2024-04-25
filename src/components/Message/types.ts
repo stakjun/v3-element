@@ -11,7 +11,7 @@ export interface MessageProps {
   type?: 'success' | 'info' | 'warning' | 'danger';
   /** 组件隐藏时销毁节点 */
   onDestroy: () => void;
-  /** Message 距离窗口顶部的偏移量 */
+  /** Message 距离窗口顶部的偏移量以及 Message 之间的间隔 */
   offset?: number;
   id: string;
   zIndex: number;

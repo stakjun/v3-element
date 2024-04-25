@@ -45,7 +45,7 @@ import { createMessage } from 'v3-element';
 | type           | 消息类型                                     | `success \| info \| warning \| danger` | info    |
 | duration       | 显示时间，单位为毫秒。 设为 0 则不会自动关闭 | `number`                               | 3000    |
 | showClose      | 是否显示关闭按钮                             | `boolean`                              | false   |
-| offset         | Message 距离窗口顶部的偏移量                 | `number`                               | 20      |
+| offset         | 距离上一个 Message 之间的间隔                | `number`                               | 20      |
 | transitionName | 动画名称                                     | `string`                               | fade-up |
 
 ### Message 方法

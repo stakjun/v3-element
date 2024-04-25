@@ -8,7 +8,9 @@ import { VkCollapse, VkCollapseItem } from '@/components/Collapse';
 import VkTooltip from '@/components/Tooltip';
 import VkDropdown from '@/components/Dropdown';
 import VkMessage from '@/components/Message';
+import VkNotification from './components/Notification';
 import { createMessage } from '@/components/Message';
+import { createNotification } from '@/components/Notification';
 
 import './styles/index.css';
 
@@ -22,7 +24,8 @@ const components = [
   VkCollapseItem,
   VkTooltip,
   VkDropdown,
-  VkMessage
+  VkMessage,
+  VkNotification
 ];
 
 const install = (app: App) => {
@@ -41,7 +44,9 @@ export {
   VkTooltip,
   VkDropdown,
   VkMessage,
-  createMessage
+  VkNotification,
+  createMessage,
+  createNotification
 };
 
 export default {
@@ -61,5 +66,6 @@ declare module 'vue' {
     VkTooltip: typeof VkTooltip;
     VkDropdown: typeof VkDropdown;
     VkMessage: typeof VkMessage;
+    VkNotification: typeof VkNotification;
   }
 }

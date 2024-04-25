@@ -48,6 +48,7 @@ export default defineConfig({
         items: [
           { text: 'Alert 提示', link: '/components/alert' },
           { text: 'Message 消息提示', link: '/components/message' },
+          { text: 'Notification 通知', link: '/components/notification' },
           { text: 'Tooltip 文字提示', link: '/components/tooltip' }
         ]
       }
