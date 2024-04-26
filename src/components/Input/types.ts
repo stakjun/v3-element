@@ -1,0 +1,12 @@
+export interface InputProps {
+  /** 类型 */
+  type: string;
+  /** 输入框尺寸，只在 type 不为 'textarea' 时有效 */
+  size?: 'large' | 'small';
+  /** 是否禁用 */
+  disabled?: boolean;
+  /** 是否显示切换密码图标 */
+  showPassword?: boolean;
+  /** 是否显示清除按钮，只有当 type 不是 textarea时生效 */
+  clearable?: boolean;
+}
