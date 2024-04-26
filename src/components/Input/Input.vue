@@ -8,7 +8,8 @@
       'is-prepend': $slots.prepend,
       'is-append': $slots.append,
       'is-prefix': $slots.prefix,
-      'is-suffix': $slots.suffix
+      'is-suffix': $slots.suffix,
+      'is-focus': isFocus
     }"
   >
     <!-- input -->
@@ -24,8 +25,15 @@
         </span>
         <input
           v-model="innerValue"
+          v-bind="attrs"
+          ref="inputRef"
           :type="showPassword ? (passwordVisible ? 'text' : 'password') : type"
           :disabled="disabled"
+          :readonly="readonly"
+          :autocomplete="autocomplete"
+          :placeholder="placeholder"
+          :autofocus="autofocus"
+          :form="form"
           class="vk-input__inner"
           @input="handleInput"
           @change="handleChange"
@@ -67,8 +75,15 @@
     <template v-else>
       <textarea
         v-model="innerValue"
+        v-bind="attrs"
+        ref="inputRef"
         class="vk-textarea__wrapper"
         :disabled="disabled"
+        :readonly="readonly"
+        :autocomplete="autocomplete"
+        :placeholder="placeholder"
+        :autofocus="autofocus"
+        :form="form"
         @input="handleInput"
         @change="handleChange"
         @focus="handleFocus"
@@ -79,18 +94,23 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref, watch } from 'vue';
+import { computed, ref, useAttrs, watch } from 'vue';
 import type { InputEmits, InputProps } from './types';
 import Icon from '../Icon';
 
 defineOptions({
-  name: 'VkInput'
+  name: 'VkInput',
+  inheritAttrs: false
 });
 
 const props = withDefaults(defineProps<InputProps>(), {
-  type: 'text'
+  type: 'text',
+  autocomplete: 'off'
 });
 const emits = defineEmits<InputEmits>();
+const attrs = useAttrs();
+
+const inputRef = ref<HTMLInputElement | null>(null);
 
 /** 输入框的值 */
 const innerValue = ref(props.modelValue);
@@ -145,4 +165,8 @@ watch(
     innerValue.value = newValue;
   }
 );
+
+defineExpose({
+  ref: inputRef
+});
 </script>

@@ -11,6 +11,16 @@ export interface InputProps {
   showPassword?: boolean;
   /** 是否显示清除按钮，只有当 type 不是 textarea时生效 */
   clearable?: boolean;
+  /** 输入框占位文本 */
+  placeholder?: string;
+  /** 原生 readonly 属性，是否只读 */
+  readonly?: boolean;
+  /** 原生 autocomplete 属性 */
+  autocomplete?: string;
+  /** 原生属性，自动获取焦点 */
+  autofocus?: boolean;
+  /** 原生属性 */
+  form?: string;
 }
 
 export interface InputEmits {
