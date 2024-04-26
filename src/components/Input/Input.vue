@@ -110,7 +110,7 @@ const props = withDefaults(defineProps<InputProps>(), {
 const emits = defineEmits<InputEmits>();
 const attrs = useAttrs();
 
-const inputRef = ref<HTMLInputElement | null>(null);
+const inputRef = ref<HTMLInputElement | HTMLTextAreaElement | null>(null);
 
 /** 输入框的值 */
 const innerValue = ref(props.modelValue);

@@ -9,6 +9,7 @@ import VkTooltip from '@/components/Tooltip';
 import VkDropdown from '@/components/Dropdown';
 import VkMessage from '@/components/Message';
 import VkNotification from './components/Notification';
+import VkInput from './components/Input';
 import { createMessage } from '@/components/Message';
 import { createNotification } from '@/components/Notification';
 
@@ -25,7 +26,8 @@ const components = [
   VkTooltip,
   VkDropdown,
   VkMessage,
-  VkNotification
+  VkNotification,
+  VkInput
 ];
 
 const install = (app: App) => {
@@ -45,6 +47,7 @@ export {
   VkDropdown,
   VkMessage,
   VkNotification,
+  VkInput,
   createMessage,
   createNotification
 };

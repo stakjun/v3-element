@@ -36,6 +36,10 @@ export default defineConfig({
         items: [{ text: 'Button 按钮', link: '/components/button' }]
       },
       {
+        text: 'Form 表单组件',
+        items: [{ text: 'Input 输入框', link: '/components/input' }]
+      },
+      {
         text: 'Data 数据展示',
         items: [{ text: 'Collapse 折叠面板', link: '/components/collapse' }]
       },
