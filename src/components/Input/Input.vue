@@ -44,6 +44,7 @@
         <span
           class="vk-input__suffix"
           v-if="$slots.suffix || showClear || showPasswordArea"
+          @click="keepFocus"
         >
           <slot name="suffix" />
           <Icon
@@ -51,6 +52,7 @@
             icon="circle-xmark"
             class="vk-input__clear"
             @click="clear"
+            @mousedown.prevent="NOOP"
           />
           <Icon
             v-if="showPasswordArea && passwordVisible"
@@ -144,6 +146,15 @@ const handleBlur = (e: FocusEvent) => {
   isFocus.value = false;
   emits('blur', e);
 };
+
+const keepFocus = () => {
+  inputRef.value?.focus();
+};
+
+/** 这个函数是个占位符，因为点击清除图标的时候会先触发 blur 事件，handleBlur 中会把 isFocus 置位 false，导致 showClear
+ *  也变成 false，所以图标就会消失，clear 就不会被触发
+ */
+const NOOP = () => {};
 
 /** 清除 */
 const clear = () => {
