@@ -28,6 +28,7 @@
           :disabled="disabled"
           class="vk-input__inner"
           @input="handleInput"
+          @change="handleChange"
           @focus="handleFocus"
           @blur="handleBlur"
         />
@@ -69,6 +70,7 @@
         class="vk-textarea__wrapper"
         :disabled="disabled"
         @input="handleInput"
+        @change="handleChange"
         @focus="handleFocus"
         @blur="handleBlur"
       />
@@ -108,18 +110,28 @@ const showPasswordArea = computed(
 
 const handleInput = () => {
   emits('update:modelValue', innerValue.value);
+  emits('input', innerValue.value);
 };
-const handleFocus = () => {
+const handleChange = () => {
+  emits('update:modelValue', innerValue.value);
+  emits('change', innerValue.value);
+};
+const handleFocus = (e: FocusEvent) => {
   isFocus.value = true;
+  emits('focus', e);
 };
-const handleBlur = () => {
+const handleBlur = (e: FocusEvent) => {
   isFocus.value = false;
+  emits('blur', e);
 };
 
 /** 清除 */
 const clear = () => {
   innerValue.value = '';
-  emits('update:modelValue', innerValue.value);
+  emits('update:modelValue', '');
+  emits('input', '');
+  emits('change', '');
+  emits('clear');
 };
 
 /** 密码图标点击 */
