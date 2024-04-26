@@ -1,4 +1,6 @@
 export interface InputProps {
+  /** 绑定值 */
+  modelValue: string;
   /** 类型 */
   type: string;
   /** 输入框尺寸，只在 type 不为 'textarea' 时有效 */
@@ -9,4 +11,8 @@ export interface InputProps {
   showPassword?: boolean;
   /** 是否显示清除按钮，只有当 type 不是 textarea时生效 */
   clearable?: boolean;
+}
+
+export interface InputEmits {
+  (e: 'update:modelValue', value: string): void;
 }
