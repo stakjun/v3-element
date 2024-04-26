@@ -24,7 +24,7 @@
         </span>
         <input
           v-model="innerValue"
-          :type="type"
+          :type="showPassword ? (passwordVisible ? 'text' : 'password') : type"
           :disabled="disabled"
           class="vk-input__inner"
           @input="handleInput"
@@ -32,13 +32,28 @@
           @blur="handleBlur"
         />
         <!-- suffix slot -->
-        <span class="vk-input__suffix" v-if="$slots.suffix || showClear">
+        <span
+          class="vk-input__suffix"
+          v-if="$slots.suffix || showClear || showPasswordArea"
+        >
           <slot name="suffix" />
           <Icon
             v-if="showClear"
             icon="circle-xmark"
             class="vk-input__clear"
             @click="clear"
+          />
+          <Icon
+            v-if="showPasswordArea && passwordVisible"
+            icon="eye"
+            class="vk-input__password"
+            @click="togglePasswordVisible"
+          />
+          <Icon
+            v-if="showPasswordArea && !passwordVisible"
+            icon="eye-slash"
+            class="vk-input__password"
+            @click="togglePasswordVisible"
           />
         </span>
       </div>
@@ -79,9 +94,16 @@ const emits = defineEmits<InputEmits>();
 const innerValue = ref(props.modelValue);
 /** 是否聚焦 */
 const isFocus = ref(false);
+/** 密码是否可见 */
+const passwordVisible = ref(false);
 /** 展示清除按钮 */
 const showClear = computed(
-  () => props.clearable && !props.disabled && innerValue.value && isFocus.value
+  () =>
+    props.clearable && !props.disabled && !!innerValue.value && isFocus.value
+);
+/** 展示密码切换图标 */
+const showPasswordArea = computed(
+  () => props.showPassword && !props.disabled && !!innerValue.value
 );
 
 const handleInput = () => {
@@ -93,10 +115,16 @@ const handleFocus = () => {
 const handleBlur = () => {
   isFocus.value = false;
 };
+
 /** 清除 */
 const clear = () => {
   innerValue.value = '';
   emits('update:modelValue', innerValue.value);
+};
+
+/** 密码图标点击 */
+const togglePasswordVisible = () => {
+  passwordVisible.value = !passwordVisible.value;
 };
 
 watch(
