@@ -9,11 +9,13 @@
     @click="switchValue"
   >
     <input
+      ref="inputRef"
       class="vk-switch__input"
       type="checkbox"
       role="switch"
       :name="name"
       :disabled="disabled"
+      @keydown.enter="switchValue"
     />
     <div class="vk-switch__core">
       <div class="vk-switch__core-action"></div>
@@ -22,7 +24,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref } from 'vue';
+import { computed, onMounted, ref, watch } from 'vue';
 import type { SwitchEmits, SwitchProps } from './types';
 
 defineOptions({
@@ -32,6 +34,8 @@ defineOptions({
 
 const props = defineProps<SwitchProps>();
 const emits = defineEmits<SwitchEmits>();
+
+const inputRef = ref<HTMLInputElement | null>(null);
 
 const innerValue = ref(props.modelValue);
 /** 是否被选中 */
@@ -45,4 +49,19 @@ const switchValue = () => {
   emits('change', innerValue.value);
   emits('update:modelValue', innerValue.value);
 };
+
+onMounted(() => {
+  inputRef.value!.checked = checked.value;
+});
+
+watch(checked, (val) => {
+  inputRef.value!.checked = val;
+});
+
+watch(
+  () => props.modelValue,
+  (newValue) => {
+    innerValue.value = newValue;
+  }
+);
 </script>
