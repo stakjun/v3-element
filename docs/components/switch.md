@@ -15,23 +15,44 @@ description: Switch 组件的文档
 
 ## 禁用状态
 
-设置 **disabled** 属性，接受一个 boolean，设置 true 即可禁用。
+设置 `disabled` 属性，接受一个 `Boolean`，设置 `true` 即可禁用。
 
 <preview path="../demo/Switch/Disabled.vue" title="Switch 禁用状态" description="Switch 禁用状态"></preview>
 
 ## 不同尺寸
 
-设置 **size** 属性，接受**large / small**，呈现不同的尺寸。
+设置 `size` 属性，接受 `large | small`，呈现不同的尺寸。
 
 <preview path="../demo/Switch/Size.vue" title="Switch 不同尺寸" description="Switch 不同尺寸"></preview>
 
 ## 支持自定义 value 类型
 
-你可以设置 **active-value** 和 **inactive-value** 属性， 它们接受 boolean | string | number 类型的值。
+你可以设置 `active-value` 和 `inactive-value` 属性， 它们接受 `boolean | string | number` 类型的值。
 <preview path="../demo/Switch/CustomValue.vue" title="支持自定义 value 类型" description="Switch 支持自定义 value 类型"></preview>
 
 ## 文字描述
 
-使用 **active-text** 属性与 **inactive-text** 属性来设置开关的文字描述。
+使用 `active-text` 属性与 `inactive-text` 属性来设置开关的文字描述。
 
 <preview path="../demo/Switch/Text.vue" title="支持文字描述" description="Switch 文字描述"></preview>
+
+## API
+
+### 属性
+
+| 属性名                | 说明                                                                       | 类型                          | 默认值 |
+| :-------------------- | :------------------------------------------------------------------------- | :---------------------------- | :----- |
+| model-value / v-model | 绑定值，必须等于 `active-value` 或 `inactive-value`，默认为 `Boolean` 类型 | `boolean \| string \| number` | false  |
+| size                  | switch 的大小                                                              | `large \| small`              | -      |
+| disabled              | 是否禁用                                                                   | `boolean`                     | false  |
+| active-value          | switch 状态为 `on` 时的值                                                  | `boolean \| string \| number` | true   |
+| inactive-value        | switch 状态为 `off` 时的值                                                 | `boolean \| string \| number` | false  |
+| active-text           | switch 打开时的文字描述                                                    | `string`                      | -      |
+| inactive-text         | switch 的状态为 `off` 时的文字描述                                         | `string`                      | -      |
+| name                  | switch 对应的 name 属性                                                    | `string`                      | -      |
+
+### 事件
+
+| 事件名 | 描述                            | 类型                                           |
+| :----- | :------------------------------ | :--------------------------------------------- |
+| change | switch 状态发生变化时的回调函数 | `(value: boolean \| string \| number) => void` |
