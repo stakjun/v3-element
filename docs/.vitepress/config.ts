@@ -37,7 +37,10 @@ export default defineConfig({
       },
       {
         text: 'Form 表单组件',
-        items: [{ text: 'Input 输入框', link: '/components/input' }]
+        items: [
+          { text: 'Input 输入框', link: '/components/input' },
+          { text: 'Switch 开关', link: '/components/switch' }
+        ]
       },
       {
         text: 'Data 数据展示',
