@@ -4,7 +4,12 @@
     :class="{ 'is-disabled': disabled }"
     @click="toggleDropdown"
   >
-    <Tooltip placement="bottom-start" manual ref="tooltipRef">
+    <Tooltip
+      placement="bottom-start"
+      manual
+      ref="tooltipRef"
+      :popperOptions="popperOptions"
+    >
       <Input
         v-model="state.inputValue"
         :placeholder="placeholder"
@@ -20,7 +25,7 @@
                 'is-disabled': item.disabled
               }"
               :id="`select-item-${item.value}`"
-              @clic.stop="itemClick(item)"
+              @click.stop="itemClick(item)"
             >
               {{ item.label }}
             </li>
@@ -67,11 +72,31 @@ const state: SelectState = reactive({
   selectedOption: initialOption.value
 });
 
+/** popper 设置 */
+const popperOptions: any = {
+  modifiers: [
+    {
+      name: 'offset',
+      options: {
+        offset: [0, 9]
+      }
+    },
+    {
+      name: 'sameWidth',
+      enabled: true,
+      fn: ({ state }: { state: any }) => {
+        state.styles.popper.width = `${state.rects.reference.width}px`;
+      },
+      phase: 'beforeWrite',
+      requires: ['computeStyles']
+    }
+  ]
+};
+
 const controlDropdown = (show: boolean) => {
   if (show) {
     tooltipRef.value?.show();
   } else {
-    console.log(tooltipRef.value);
     tooltipRef.value?.hide();
   }
   isDropdownShow.value = show;
