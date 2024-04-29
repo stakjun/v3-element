@@ -16,8 +16,10 @@
       <Input
         v-model="state.inputValue"
         ref="inputRef"
-        :placeholder="placeholder"
+        :placeholder="filteredPlaceholder"
         :disabled="disabled"
+        :readonly="!filterable || !isDropdownShow"
+        @input="onFilter"
       >
         <template #suffix>
           <Icon
@@ -37,7 +39,7 @@
       </Input>
       <template #content>
         <ul class="vk-select__menu">
-          <template v-for="(item, index) in options" :key="index">
+          <template v-for="(item, index) in filterOptions" :key="index">
             <li
               class="vk-select__menu-item"
               :class="{
@@ -47,7 +49,9 @@
               :id="`select-item-${item.value}`"
               @click.stop="itemClick(item)"
             >
-              {{ item.label }}
+              <RenderVnode
+                :vNode="renderLabel ? renderLabel(item) : item.label"
+              />
             </li>
           </template>
         </ul>
@@ -67,6 +71,29 @@ import type {
   SelectStates
 } from './types';
 import Icon from '../Icon';
+import RenderVnode from '../Common/RenderVnode';
+import { isFunction } from 'lodash-es';
+
+/** popper 设置 */
+const popperOptions: any = {
+  modifiers: [
+    {
+      name: 'offset',
+      options: {
+        offset: [0, 9]
+      }
+    },
+    {
+      name: 'sameWidth',
+      enabled: true,
+      fn: ({ state }: { state: any }) => {
+        state.styles.popper.width = `${state.rects.reference.width}px`;
+      },
+      phase: 'beforeWrite',
+      requires: ['computeStyles']
+    }
+  ]
+};
 
 defineOptions({
   name: 'VkSelect'
@@ -104,31 +131,48 @@ const showClearIcon = computed(
     state.inputValue.trim()
 );
 
-/** popper 设置 */
-const popperOptions: any = {
-  modifiers: [
-    {
-      name: 'offset',
-      options: {
-        offset: [0, 9]
-      }
-    },
-    {
-      name: 'sameWidth',
-      enabled: true,
-      fn: ({ state }: { state: any }) => {
-        state.styles.popper.width = `${state.rects.reference.width}px`;
-      },
-      phase: 'beforeWrite',
-      requires: ['computeStyles']
-    }
-  ]
+/** placeholder */
+/** filter 模式下的 placeholder 为选中的 label */
+const filteredPlaceholder = computed(() =>
+  props.filterable && state.selectedOption && isDropdownShow.value
+    ? state.selectedOption.label
+    : props.placeholder
+);
+
+/** 菜单项 */
+const filterOptions = ref(props.options);
+/** 根据输入框的值筛选 */
+const generateFilterOptions = (searchValue: string) => {
+  if (!props.filterable) {
+    return;
+  }
+  if (props.filterMethod && isFunction(props.filterMethod)) {
+    filterOptions.value = props.filterMethod(searchValue);
+  } else {
+    filterOptions.value = props.options.filter((option) =>
+      option.label.includes(searchValue)
+    );
+  }
+};
+const onFilter = () => {
+  generateFilterOptions(state.inputValue);
 };
 
 const controlDropdown = (show: boolean) => {
   if (show) {
+    // filer 模式下之前选择过对应的值每次点击都会重置
+    if (props.filterable && state.selectedOption) {
+      state.inputValue = '';
+    }
+    if (props.filterable) {
+      generateFilterOptions(state.inputValue);
+    }
     tooltipRef.value?.show();
   } else {
+    // blur 的时候将值回填
+    if (props.filterable) {
+      state.inputValue = state.selectedOption ? state.selectedOption.label : '';
+    }
     tooltipRef.value?.hide();
   }
   isDropdownShow.value = show;
@@ -167,5 +211,13 @@ const clear = () => {
   emits('update:modelValue', '');
   emits('clear');
 };
+
 const NOOP = () => {};
+
+watch(
+  () => props.options,
+  (newVal) => {
+    filterOptions.value = newVal;
+  }
+);
 </script>
