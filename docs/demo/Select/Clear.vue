@@ -1,10 +1,12 @@
 <template>
   <vk-select
     v-model="test"
-    placeholder="基础选择器，请选择"
+    placeholder="可清空选择器，请选择"
     :options="options2"
+    clearable
   />
 </template>
+
 <script setup>
 import { ref } from 'vue';
 

@@ -13,15 +13,19 @@ export interface SelectProps {
   placeholder?: string;
   /** 是否禁用 */
   disabled?: boolean;
+  /** 是否可以清空选项 */
+  clearable?: boolean;
 }
 
-export interface SelectState {
+export interface SelectStates {
   inputValue: string;
   selectedOption: SelectOption | null;
+  mouseHover: boolean;
 }
 
 export interface SelectEmits {
   (e: 'change', value: string): void;
   (e: 'update:modelValue', value: string): void;
   (e: 'visible-change', value: boolean): void;
+  (e: 'clear'): void;
 }

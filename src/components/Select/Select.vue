@@ -3,6 +3,8 @@
     class="vk-select"
     :class="{ 'is-disabled': disabled }"
     @click="toggleDropdown"
+    @mouseenter="state.mouseHover = true"
+    @mouseleave="state.mouseHover = false"
   >
     <Tooltip
       placement="bottom-start"
@@ -19,6 +21,14 @@
       >
         <template #suffix>
           <Icon
+            icon="circle-xmark"
+            v-if="showClearIcon"
+            class="vk-input__clear"
+            @click.stop="clear"
+            @mousedown.prevent="NOOP"
+          />
+          <Icon
+            v-else
             icon="angle-down"
             class="header-angle"
             :class="{ 'is-active': isDropdownShow }"
@@ -47,14 +57,14 @@
 </template>
 
 <script setup lang="ts">
-import { computed, reactive, ref } from 'vue';
+import { computed, reactive, ref, watch } from 'vue';
 import Input, { type InputInstance } from '../Input';
 import Tooltip, { type TooltipInstance } from '../Tooltip';
 import type {
   SelectEmits,
   SelectOption,
   SelectProps,
-  SelectState
+  SelectStates
 } from './types';
 import Icon from '../Icon';
 
@@ -79,10 +89,20 @@ const initialOption = computed(() => {
   return option || null;
 });
 /** input 的值和 选中的 option */
-const state: SelectState = reactive({
+const state: SelectStates = reactive({
   inputValue: initialOption.value?.label || '',
-  selectedOption: initialOption.value
+  selectedOption: initialOption.value,
+  mouseHover: false
 });
+
+/** 展示清楚按钮 */
+const showClearIcon = computed(
+  () =>
+    props.clearable &&
+    state.mouseHover &&
+    state.selectedOption &&
+    state.inputValue.trim()
+);
 
 /** popper 设置 */
 const popperOptions: any = {
@@ -138,4 +158,14 @@ const itemClick = (item: SelectOption) => {
   controlDropdown(false);
   inputRef.value?.ref?.focus();
 };
+
+/** 清空 */
+const clear = () => {
+  state.inputValue = '';
+  state.selectedOption = null;
+  emits('change', '');
+  emits('update:modelValue', '');
+  emits('clear');
+};
+const NOOP = () => {};
 </script>
