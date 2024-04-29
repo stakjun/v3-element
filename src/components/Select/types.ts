@@ -1,4 +1,4 @@
-interface SelectOption {
+export interface SelectOption {
   label: string;
   value: string;
   disabled?: boolean;
@@ -13,6 +13,11 @@ export interface SelectProps {
   placeholder?: string;
   /** 是否禁用 */
   disabled?: boolean;
+}
+
+export interface SelectState {
+  inputValue: string;
+  selectedOption: SelectOption | null;
 }
 
 export interface SelectEmits {

@@ -6,7 +6,7 @@
   >
     <Tooltip placement="bottom-start" manual ref="tooltipRef">
       <Input
-        v-model="innerValue"
+        v-model="state.inputValue"
         :placeholder="placeholder"
         :disabled="disabled"
       />
@@ -16,9 +16,11 @@
             <li
               class="vk-select__menu-item"
               :class="{
+                'is-selected': state.selectedOption?.value === item.value,
                 'is-disabled': item.disabled
               }"
               :id="`select-item-${item.value}`"
+              @clic.stop="itemClick(item)"
             >
               {{ item.label }}
             </li>
@@ -30,10 +32,15 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { computed, reactive, ref } from 'vue';
 import Input from '../Input';
 import Tooltip, { type TooltipInstance } from '../Tooltip';
-import type { SelectEmits, SelectProps } from './types';
+import type {
+  SelectEmits,
+  SelectOption,
+  SelectProps,
+  SelectState
+} from './types';
 
 defineOptions({
   name: 'VkSelect'
@@ -42,10 +49,23 @@ defineOptions({
 const props = defineProps<SelectProps>();
 const emits = defineEmits<SelectEmits>();
 
-const innerValue = ref('');
+const tooltipRef = ref<TooltipInstance | null>(null);
+
 /** 菜单是否打开 */
 const isDropdownShow = ref(false);
-const tooltipRef = ref<TooltipInstance | null>(null);
+
+/** 根据 modelValue 找到初始的 option */
+const initialOption = computed(() => {
+  const option = props.options.find(
+    (option) => option.value === props.modelValue
+  );
+  return option || null;
+});
+/** input 的值和 选中的 option */
+const state: SelectState = reactive({
+  inputValue: initialOption.value?.label || '',
+  selectedOption: initialOption.value
+});
 
 const controlDropdown = (show: boolean) => {
   if (show) {
@@ -67,5 +87,17 @@ const toggleDropdown = () => {
   } else {
     controlDropdown(true);
   }
+};
+
+/** 点击菜单项 */
+const itemClick = (item: SelectOption) => {
+  if (item.disabled) {
+    return;
+  }
+  state.inputValue = item.label;
+  state.selectedOption = item;
+  emits('change', item.value);
+  emits('update:modelValue', item.value);
+  controlDropdown(false);
 };
 </script>
