@@ -1,3 +1,5 @@
+import type { Ref } from 'vue';
+
 export interface InputProps {
   /** 绑定值 */
   modelValue: string;
@@ -32,4 +34,8 @@ export interface InputEmits {
   (e: 'focus', value: FocusEvent): void;
   (e: 'blur', value: FocusEvent): void;
   (e: 'clear'): void;
+}
+
+export interface InputInstance {
+  ref: Ref<HTMLInputElement | HTMLTextAreaElement | null>;
 }

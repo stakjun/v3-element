@@ -97,7 +97,7 @@
 
 <script setup lang="ts">
 import { computed, ref, useAttrs, watch } from 'vue';
-import type { InputEmits, InputProps } from './types';
+import type { InputEmits, InputInstance, InputProps } from './types';
 import Icon from '../Icon';
 
 defineOptions({
@@ -177,7 +177,7 @@ watch(
   }
 );
 
-defineExpose({
+defineExpose<InputInstance>({
   ref: inputRef
 });
 </script>

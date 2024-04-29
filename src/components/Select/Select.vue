@@ -9,12 +9,22 @@
       manual
       ref="tooltipRef"
       :popperOptions="popperOptions"
+      @click-outside="controlDropdown(false)"
     >
       <Input
         v-model="state.inputValue"
+        ref="inputRef"
         :placeholder="placeholder"
         :disabled="disabled"
-      />
+      >
+        <template #suffix>
+          <Icon
+            icon="angle-down"
+            class="header-angle"
+            :class="{ 'is-active': isDropdownShow }"
+          />
+        </template>
+      </Input>
       <template #content>
         <ul class="vk-select__menu">
           <template v-for="(item, index) in options" :key="index">
@@ -38,7 +48,7 @@
 
 <script setup lang="ts">
 import { computed, reactive, ref } from 'vue';
-import Input from '../Input';
+import Input, { type InputInstance } from '../Input';
 import Tooltip, { type TooltipInstance } from '../Tooltip';
 import type {
   SelectEmits,
@@ -46,6 +56,7 @@ import type {
   SelectProps,
   SelectState
 } from './types';
+import Icon from '../Icon';
 
 defineOptions({
   name: 'VkSelect'
@@ -55,6 +66,7 @@ const props = defineProps<SelectProps>();
 const emits = defineEmits<SelectEmits>();
 
 const tooltipRef = ref<TooltipInstance | null>(null);
+const inputRef = ref<InputInstance | null>(null);
 
 /** 菜单是否打开 */
 const isDropdownShow = ref(false);
@@ -124,5 +136,6 @@ const itemClick = (item: SelectOption) => {
   emits('change', item.value);
   emits('update:modelValue', item.value);
   controlDropdown(false);
+  inputRef.value?.ref?.focus();
 };
 </script>
