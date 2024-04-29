@@ -2,7 +2,7 @@ export interface InputProps {
   /** 绑定值 */
   modelValue: string;
   /** 类型 */
-  type: string;
+  type?: string;
   /** 输入框尺寸，只在 type 不为 'textarea' 时有效 */
   size?: 'large' | 'small';
   /** 是否禁用 */
