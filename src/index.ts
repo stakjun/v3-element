@@ -12,6 +12,7 @@ import VkNotification from './components/Notification';
 import VkInput from './components/Input';
 import VkSwitch from './components/Switch';
 import VkSelect from './components/Select';
+import { VkForm, VkFormItem } from './components/Form';
 import { createMessage } from '@/components/Message';
 import { createNotification } from '@/components/Notification';
 
@@ -31,7 +32,9 @@ const components = [
   VkNotification,
   VkInput,
   VkSwitch,
-  VkSelect
+  VkSelect,
+  VkForm,
+  VkFormItem
 ];
 
 const install = (app: App) => {
@@ -54,6 +57,8 @@ export {
   VkInput,
   VkSwitch,
   VkSelect,
+  VkForm,
+  VkFormItem,
   createMessage,
   createNotification
 };
@@ -79,5 +84,7 @@ declare module 'vue' {
     VkInput: typeof VkInput;
     VkSwitch: typeof VkSwitch;
     VkSelect: typeof VkSelect;
+    VkForm: typeof VkForm;
+    VkFormItem: typeof VkFormItem;
   }
 }
