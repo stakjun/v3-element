@@ -20,6 +20,7 @@
         :disabled="disabled"
         :readonly="!filterable || !isDropdownShow"
         @input="debounceFilter"
+        @keydown="handleKeydown"
       >
         <template #suffix>
           <Icon
@@ -53,7 +54,8 @@
               class="vk-select__menu-item"
               :class="{
                 'is-selected': state.selectedOption?.value === item.value,
-                'is-disabled': item.disabled
+                'is-disabled': item.disabled,
+                'is-highlighted': state.highlightIndex === index
               }"
               :id="`select-item-${item.value}`"
               @click.stop="itemClick(item)"
@@ -133,7 +135,8 @@ const state: SelectStates = reactive({
   inputValue: initialOption.value?.label || '',
   selectedOption: initialOption.value,
   mouseHover: false,
-  loading: false
+  loading: false,
+  highlightIndex: -1
 });
 
 /** 展示清楚按钮 */
@@ -180,6 +183,7 @@ const generateFilterOptions = async (searchValue: string) => {
     filterOptions.value = props.options.filter((option) =>
       option.label.includes(searchValue)
     );
+    state.highlightIndex = -1;
   }
 };
 const onFilter = () => {
@@ -204,6 +208,7 @@ const controlDropdown = (show: boolean) => {
     if (props.filterable) {
       state.inputValue = state.selectedOption ? state.selectedOption.label : '';
     }
+    state.highlightIndex = -1;
     tooltipRef.value?.hide();
   }
   isDropdownShow.value = show;
@@ -218,6 +223,54 @@ const toggleDropdown = () => {
     controlDropdown(false);
   } else {
     controlDropdown(true);
+  }
+};
+
+/** 输入框键盘事件 */
+const handleKeydown = (e: KeyboardEvent) => {
+  switch (e.key) {
+    case 'Enter':
+      if (!isDropdownShow.value) {
+        controlDropdown(true);
+      } else {
+        if (
+          state.highlightIndex > -1 &&
+          filterOptions.value[state.highlightIndex]
+        ) {
+          itemClick(filterOptions.value[state.highlightIndex]);
+        }
+      }
+      break;
+    case 'Escape':
+      if (isDropdownShow.value) {
+        controlDropdown(false);
+      }
+      break;
+    case 'ArrowUp':
+      e.preventDefault();
+      if (filterOptions.value.length && isDropdownShow.value) {
+        if (state.highlightIndex === -1 || state.highlightIndex === 0) {
+          state.highlightIndex = filterOptions.value.length - 1;
+        } else {
+          state.highlightIndex--;
+        }
+      }
+      break;
+    case 'ArrowDown':
+      e.preventDefault();
+      if (filterOptions.value.length && isDropdownShow.value) {
+        if (
+          state.highlightIndex === -1 ||
+          state.highlightIndex === filterOptions.value.length - 1
+        ) {
+          state.highlightIndex = 0;
+        } else {
+          state.highlightIndex++;
+        }
+      }
+      break;
+    default:
+      break;
   }
 };
 

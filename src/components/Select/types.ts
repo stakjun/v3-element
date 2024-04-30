@@ -37,6 +37,7 @@ export interface SelectStates {
   selectedOption: SelectOption | null;
   mouseHover: boolean;
   loading: boolean;
+  highlightIndex: number;
 }
 
 export interface SelectEmits {
