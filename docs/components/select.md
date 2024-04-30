@@ -33,3 +33,11 @@ description: Select 组件的文档
 
 添加 `filterable` 属性即可启用搜索功能。 默认情况下，`Select` 会找出所有 `label` 属性包含输入值的选项。 如果希望使用其他的搜索逻辑，可以通过传入一个 `filter-method` 来实现。 `filter-method` 为一个 `Function`，它会在输入值发生变化时调用，参数为当前输入值。
 <preview path="../demo/Select/Filter.vue" title="筛选选项" description="Select 筛选选项"></preview>
+
+## 远程搜索
+
+输入关键字以从远程服务器中查找数据。
+
+服务器搜索数据，输入关键字进行查找。为了启用远程搜索，需要将 `filterable` 和 `remote` 设置为 `true`，同时传入一个`remote-method`。 `remote-method` 为一个返回 `Promise` 的 `Function`，类型为 `(value: string) => Promise<SelectOption[]>` 。
+
+<preview path="../demo/Select/Remote.vue" title="筛选选项" description="Select 筛选选项"></preview>

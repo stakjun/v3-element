@@ -8,12 +8,13 @@ export interface SelectOption {
 
 export type RenderLabelFunc = (option: SelectOption) => VNode;
 export type FilterMethod = (value: string) => SelectOption[];
+export type FilterRemoteMethod = (value: string) => Promise<SelectOption[]>;
 
 export interface SelectProps {
   /** 选中项绑定值 */
   modelValue: string;
   /** 选项 */
-  options: SelectOption[];
+  options?: SelectOption[];
   /** 占位符 */
   placeholder?: string;
   /** 是否禁用 */
@@ -25,12 +26,17 @@ export interface SelectProps {
   filterable?: boolean;
   /** 自定义筛选方法 */
   filterMethod?: FilterMethod;
+  /** 其中的选项是否从服务器远程加载 */
+  remote?: boolean;
+  /** 自定义远程搜索方法 */
+  remoteMethod?: FilterRemoteMethod;
 }
 
 export interface SelectStates {
   inputValue: string;
   selectedOption: SelectOption | null;
   mouseHover: boolean;
+  loading: boolean;
 }
 
 export interface SelectEmits {

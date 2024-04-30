@@ -34,6 +34,15 @@
     cursor: pointer;
   }
 
+  .vk-select__nodata,
+  .vk-select__loading {
+    padding: 10px 0;
+    margin: 0;
+    text-align: center;
+    color: var(--vk-text-color-secondary);
+    font-size: var(--vk-select-font-size);
+  }
+
   .vk-select__menu {
     list-style: none;
     margin: 6px 0;
@@ -62,6 +71,10 @@
     &.is-selected {
       color: var(--vk-select-item-selected-font-color);
       font-weight: 700;
+    }
+
+    &.is-highlighted {
+      background-color: var(--vk-select-item-hover-bg-color);
     }
 
     &.is-disabled {
