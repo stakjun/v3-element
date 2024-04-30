@@ -41,3 +41,36 @@ description: Select 组件的文档
 服务器搜索数据，输入关键字进行查找。为了启用远程搜索，需要将 `filterable` 和 `remote` 设置为 `true`，同时传入一个`remote-method`。 `remote-method` 为一个返回 `Promise` 的 `Function`，类型为 `(value: string) => Promise<SelectOption[]>` 。
 
 <preview path="../demo/Select/Remote.vue" title="筛选选项" description="Select 筛选选项"></preview>
+
+## API
+
+### 属性
+
+| 属性名                | 说明                           | 类型                                         | 默认值 |
+| :-------------------- | :----------------------------- | :------------------------------------------- | :----- |
+| model-value / v-model | 选中项绑定值                   | `string`                                     | -      |
+| disabled              | 是否禁用                       | `boolean`                                    | false  |
+| options               | 下拉框选项                     | `SelectOption[]`                             | []     |
+| placeholder           | 占位符                         | `string`                                     | -      |
+| clearable             | 是否可以清空选项               | `boolean`                                    | false  |
+| renderLabel           | 自定义选项模板                 | `(option: SelectOption) => VNode`            | -      |
+| filterable            | Select 组件是否可筛选          | `boolean`                                    | false  |
+| filterMethod          | 自定义筛选方法                 | `(value: string) => SelectOption[]`          | -      |
+| remote                | 其中的选项是否从服务器远程加载 | `boolean`                                    | false  |
+| remoteMethod          | 自定义远程搜索方法             | `(value: string) => Promise<SelectOption[]>` | -      |
+
+### 事件
+
+| 事件名         | 描述                                        | 类型                       |
+| :------------- | :------------------------------------------ | :------------------------- |
+| change         | 选中值发生变化时触发                        | `(value: string) => void`  |
+| visible-change | 下拉框出现/隐藏时触发                       | `(value: boolean) => void` |
+| clear          | 在点击由 clearable 属性生成的清空按钮时触发 | `() => void`               |
+
+### SelectOption
+
+| 属性名   | 说明           | 类型      | 默认值 |
+| :------- | :------------- | :-------- | :----- |
+| label    | 选项显示的文字 | `string`  | -      |
+| value    | 选项的值       | `string`  | -      |
+| disabled | 是否禁用       | `boolean` | false  |

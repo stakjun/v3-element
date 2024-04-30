@@ -21,6 +21,7 @@ export interface SelectProps {
   disabled?: boolean;
   /** 是否可以清空选项 */
   clearable?: boolean;
+  /** 自定义选项模板 */
   renderLabel?: RenderLabelFunc;
   /** Select 组件是否可筛选 */
   filterable?: boolean;
