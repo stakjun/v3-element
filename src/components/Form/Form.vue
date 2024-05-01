@@ -6,7 +6,12 @@
 
 <script setup lang="ts">
 import { provide } from 'vue';
-import { formContextKey, type FormProps } from './types';
+import {
+  formContextKey,
+  type FormContext,
+  type FormItemContext,
+  type FormProps
+} from './types';
 
 defineOptions({
   name: 'VkForm'
@@ -14,5 +19,19 @@ defineOptions({
 
 const props = defineProps<FormProps>();
 
-provide(formContextKey, props);
+const fields: FormItemContext[] = [];
+const addField: FormContext['addField'] = (field) => {
+  fields.push(field);
+};
+const removeField: FormContext['removeField'] = (field) => {
+  if (field.prop) {
+    fields.splice(fields.indexOf(field), 1);
+  }
+};
+
+provide(formContextKey, {
+  ...props,
+  addField,
+  removeField
+});
 </script>

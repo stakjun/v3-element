@@ -23,7 +23,14 @@
 </template>
 
 <script setup lang="ts">
-import { computed, inject, provide, reactive } from 'vue';
+import {
+  computed,
+  inject,
+  onMounted,
+  onUnmounted,
+  provide,
+  reactive
+} from 'vue';
 import {
   formContextKey,
   formItemContextKey,
@@ -107,5 +114,19 @@ const validate = (trigger?: string) => {
   }
 };
 
-provide(formItemContextKey, { validate });
+const context = {
+  validate,
+  prop: props.prop || ''
+};
+provide(formItemContextKey, context);
+
+onMounted(() => {
+  if (props.prop) {
+    formContext?.addField(context);
+  }
+});
+
+onUnmounted(() => {
+  formContext?.removeField(context);
+});
 </script>
