@@ -35,7 +35,7 @@ import {
   formContextKey,
   formItemContextKey,
   type FormItemProps,
-  type validateError
+  type FormValidateError
 } from './types';
 import { isNil } from 'lodash-es';
 import Schema from 'async-validator';
@@ -97,16 +97,17 @@ const validate = (trigger?: string) => {
       [modelName]: triggeredRules
     });
     validateStatus.loading = true;
-    validator
+    return validator
       .validate({ [modelName]: innerValue.value })
       .then(() => {
         validateStatus.state = 'success';
       })
-      .catch((e: validateError) => {
+      .catch((e: FormValidateError) => {
         const { errors } = e;
         validateStatus.state = 'error';
         validateStatus.errorMsg =
           errors && errors.length ? errors[0].message || '' : '';
+        return Promise.reject(e);
       })
       .finally(() => {
         validateStatus.loading = false;
