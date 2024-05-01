@@ -12,14 +12,21 @@
     </label>
     <div class="vk-form-item__content">
       <slot />
+      <div
+        class="vk-form-item__error-msg"
+        v-if="validateStatus.state === 'error'"
+      >
+        {{ validateStatus.errorMsg }}
+      </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { computed, inject, reactive } from 'vue';
+import { computed, inject, provide, reactive } from 'vue';
 import {
   formContextKey,
+  formItemContextKey,
   type FormItemProps,
   type validateError
 } from './types';
@@ -43,7 +50,7 @@ const validateStatus = reactive({
 /** FormItem 的值 */
 const innerValue = computed(() => {
   const model = formContext?.model;
-  if (model && props.prop && isNil(model[props.prop])) {
+  if (model && props.prop && !isNil(model[props.prop])) {
     return model[props.prop];
   } else {
     return null;
@@ -51,7 +58,7 @@ const innerValue = computed(() => {
 });
 /** FormItem 的规则 */
 const itemRules = computed(() => {
-  const rules = formContext?.model;
+  const rules = formContext?.rules;
   if (rules && props.prop && rules[props.prop]) {
     return rules[props.prop];
   } else {
@@ -82,4 +89,6 @@ const validate = () => {
       });
   }
 };
+
+provide(formItemContextKey, { validate });
 </script>

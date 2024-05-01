@@ -96,9 +96,10 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref, useAttrs, watch } from 'vue';
+import { computed, inject, ref, useAttrs, watch } from 'vue';
 import type { InputEmits, InputInstance, InputProps } from './types';
 import Icon from '../Icon';
+import { formItemContextKey } from '../Form/types';
 
 defineOptions({
   name: 'VkInput',
@@ -130,6 +131,13 @@ const showPasswordArea = computed(
   () => props.showPassword && !props.disabled && !!innerValue.value
 );
 
+const formItemContext = inject(formItemContextKey);
+
+/** 验证 */
+const runValidation = () => {
+  formItemContext?.validate();
+};
+
 const handleInput = () => {
   emits('update:modelValue', innerValue.value);
   emits('input', innerValue.value);
@@ -145,6 +153,7 @@ const handleFocus = (e: FocusEvent) => {
 const handleBlur = (e: FocusEvent) => {
   isFocus.value = false;
   emits('blur', e);
+  runValidation();
 };
 
 const keepFocus = () => {
