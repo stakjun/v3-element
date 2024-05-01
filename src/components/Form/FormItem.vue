@@ -1,5 +1,12 @@
 <template>
-  <div class="vk-form-item">
+  <div
+    class="vk-form-item"
+    :class="{
+      'is-loading': validateStatus.loading,
+      'is-success': validateStatus.state === 'success',
+      'is-error': validateStatus.state === 'error'
+    }"
+  >
     <label class="vk-form-item__label">
       <slot name="label" :label="label">{{ label }}</slot>
     </label>
@@ -10,8 +17,12 @@
 </template>
 
 <script setup lang="ts">
-import { computed, inject } from 'vue';
-import { formContextKey, type FormItemProps } from './types';
+import { computed, inject, reactive } from 'vue';
+import {
+  formContextKey,
+  type FormItemProps,
+  type validateError
+} from './types';
 import { isNil } from 'lodash-es';
 import Schema from 'async-validator';
 
@@ -23,6 +34,13 @@ const props = defineProps<FormItemProps>();
 
 const formContext = inject(formContextKey);
 
+const validateStatus = reactive({
+  state: 'init',
+  errorMsg: '',
+  loading: false
+});
+
+/** FormItem 的值 */
 const innerValue = computed(() => {
   const model = formContext?.model;
   if (model && props.prop && isNil(model[props.prop])) {
@@ -31,7 +49,7 @@ const innerValue = computed(() => {
     return null;
   }
 });
-
+/** FormItem 的规则 */
 const itemRules = computed(() => {
   const rules = formContext?.model;
   if (rules && props.prop && rules[props.prop]) {
@@ -40,20 +58,27 @@ const itemRules = computed(() => {
     return [];
   }
 });
-
+/** 规则验证 */
 const validate = () => {
   const modelName = props.prop;
   if (modelName) {
     const validator = new Schema({
       [modelName]: itemRules.value
     });
+    validateStatus.loading = true;
     validator
       .validate({ [modelName]: innerValue.value })
       .then(() => {
-        console.log('no error');
+        validateStatus.state = 'success';
       })
-      .catch((e) => {
-        console.log(e.errors);
+      .catch((e: validateError) => {
+        const { errors } = e;
+        validateStatus.state = 'error';
+        validateStatus.errorMsg =
+          errors && errors.length ? errors[0].message || '' : '';
+      })
+      .finally(() => {
+        validateStatus.loading = false;
       });
   }
 };
