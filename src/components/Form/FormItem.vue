@@ -53,7 +53,7 @@ const validateStatus = reactive({
   errorMsg: '',
   loading: false
 });
-
+let initialValue: any = null;
 /** FormItem 的值 */
 const innerValue = computed(() => {
   const model = formContext?.model;
@@ -115,15 +115,33 @@ const validate = (trigger?: string) => {
   }
 };
 
+const clearValidate = () => {
+  validateStatus.state = 'init';
+  validateStatus.loading = false;
+  validateStatus.errorMsg = '';
+};
+
+/** 重置 */
+const resetField = () => {
+  clearValidate();
+  const model = formContext?.model;
+  if (model && props.prop && !isNil(model[props.prop])) {
+    model[props.prop] = initialValue;
+  }
+};
+
 const context = {
   validate,
-  prop: props.prop || ''
+  prop: props.prop || '',
+  resetField,
+  clearValidate
 };
 provide(formItemContextKey, context);
 
 onMounted(() => {
   if (props.prop) {
     formContext?.addField(context);
+    initialValue = innerValue.value;
   }
 });
 

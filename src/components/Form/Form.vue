@@ -52,6 +52,24 @@ const validate = async () => {
   return Promise.reject(validateErrors);
 };
 
+/** 重置表单 */
+const resetFields = (keys: string[] = []) => {
+  const filterArr =
+    keys.length > 0
+      ? fields.filter((field) => keys.includes(field.prop))
+      : fields;
+  filterArr.forEach((field) => field.resetField());
+};
+
+/** 清空提示信息 */
+const clearValidate = (keys: string[] = []) => {
+  const filterArr =
+    keys.length > 0
+      ? fields.filter((field) => keys.includes(field.prop))
+      : fields;
+  filterArr.forEach((field) => field.clearValidate());
+};
+
 provide(formContextKey, {
   ...props,
   addField,
@@ -59,6 +77,8 @@ provide(formContextKey, {
 });
 
 defineExpose<FormInstance>({
-  validate
+  validate,
+  clearValidate,
+  resetFields
 });
 </script>
