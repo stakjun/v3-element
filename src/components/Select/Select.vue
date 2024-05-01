@@ -106,6 +106,11 @@ const popperOptions: any = {
   ]
 };
 
+const findOption = (value: string) => {
+  const option = props.options.find((option) => option.value === value);
+  return option ? option : null;
+};
+
 defineOptions({
   name: 'VkSelect'
 });
@@ -124,12 +129,15 @@ const timeout = computed(() => (props.remote ? 300 : 0));
 const isDropdownShow = ref(false);
 
 /** 根据 modelValue 找到初始的 option */
-const initialOption = computed(() => {
-  const option = props.options.find(
-    (option) => option.value === props.modelValue
-  );
-  return option || null;
-});
+const initialOption = ref(findOption(props.modelValue));
+watch(
+  () => props.modelValue,
+  (newValue) => {
+    initialOption.value = findOption(newValue);
+    state.inputValue = initialOption.value?.label || '';
+  }
+);
+
 /** input 的值和 选中的 option */
 const state: SelectStates = reactive({
   inputValue: initialOption.value?.label || '',

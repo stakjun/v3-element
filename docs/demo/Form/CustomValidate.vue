@@ -1,18 +1,14 @@
-
 <template>
   <div>
-    <vk-form :model="model" ref="formRef">
+    <vk-form :model="model" :rules="rules" ref="formRef">
       <vk-form-item prop="email" label="the email">
         <vk-input v-model="model.email" />
       </vk-form-item>
       <vk-form-item prop="password" label="the password">
         <vk-input v-model="model.password" type="password" />
       </vk-form-item>
-      <vk-form-item prop="agreement" label="agreement">
-        <vk-switch v-model="model.agreement" />
-      </vk-form-item>
-      <vk-form-item prop="zone" label="zone">
-        <vk-select v-model="model.zone" :options="options" />
+      <vk-form-item prop="confirmPwd" label="confirm password">
+        <vk-input v-model="model.confirmPwd" type="password" />
       </vk-form-item>
       <vk-form-item>
         <vk-button @click.prevent="submit" type="primary">Submit</vk-button>
@@ -28,29 +24,33 @@
   </template>
 
 <script setup>
-import { reactive, ref } from 'vue';
+import { reactive, ref } from 'vue'
 
 const model = reactive({
   email: '',
   password: '',
-  confirmPwd: '',
-  agreement: false,
-  zone: ''
+  confirmPwd: ''
 })
 
-const options = [
-  { label: 'zone 1', value: 'one' },
-  { label: 'zone 2', value: 'two' },
-  { label: 'zone 3', value: 'three' }
-]
+const rules = {
+  email: [{ type: 'email', required: true, trigger: 'blur' }],
+  password: [{ type: 'string', required: true, trigger: 'blur' }, { min: 3, max: 5, message: 'Length should be 3 to 5', trigger: 'blur' } ],
+  confirmPwd: [{ type: 'string', required: true, trigger: 'blur' }, {  validator: (rule, value) => value === model.password, trigger: 'blur', message: '两个密码必须一致' } ],
+}
 
 const formRef = ref()
 
 const submit = async () => {
-  alert('submitted!')
+  try {
+    await formRef.value.validate()
+    console.log('passed!')
+  } catch(e) {
+    console.log('the promise', e)
+  }
 }
 
 const reset = () => {
   formRef.value.resetFields()
 }
 </script>
+

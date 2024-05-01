@@ -8,9 +8,9 @@ export interface SwitchProps {
   /** 是否禁用 */
   disabled?: boolean;
   /** switch 状态为 on 时的值 */
-  activeValue: ModelValueType;
+  activeValue?: ModelValueType;
   /** switch的状态为 off 时的值 */
-  inactiveValue: ModelValueType;
+  inactiveValue?: ModelValueType;
   /** switch 打开时的文字描述 */
   activeText?: string;
   /** switch 的状态为 off 时的文字描述 */

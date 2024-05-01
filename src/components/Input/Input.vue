@@ -135,7 +135,9 @@ const formItemContext = inject(formItemContextKey);
 
 /** 验证 */
 const runValidation = (trigger?: string) => {
-  formItemContext?.validate(trigger);
+  formItemContext?.validate(trigger).catch((e) => {
+    console.log(e);
+  });
 };
 
 const handleInput = () => {
