@@ -11,7 +11,7 @@
       <slot name="label" :label="label">{{ label }}</slot>
     </label>
     <div class="vk-form-item__content">
-      <slot />
+      <slot :validate="validate" />
       <div
         class="vk-form-item__error-msg"
         v-if="validateStatus.state === 'error'"
@@ -65,12 +65,29 @@ const itemRules = computed(() => {
     return [];
   }
 });
+
+const getTriggeredRules = (trigger?: string) => {
+  if (itemRules.value) {
+    return itemRules.value.filter((rule) => {
+      if (!trigger || !rule.trigger) {
+        return true;
+      }
+      return rule.trigger && rule.trigger === trigger;
+    });
+  } else {
+    return [];
+  }
+};
 /** 规则验证 */
-const validate = () => {
+const validate = (trigger?: string) => {
   const modelName = props.prop;
+  const triggeredRules = getTriggeredRules(trigger);
+  if (triggeredRules.length === 0) {
+    return true;
+  }
   if (modelName) {
     const validator = new Schema({
-      [modelName]: itemRules.value
+      [modelName]: triggeredRules
     });
     validateStatus.loading = true;
     validator
