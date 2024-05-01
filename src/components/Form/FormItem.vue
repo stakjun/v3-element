@@ -4,7 +4,8 @@
     :class="{
       'is-loading': validateStatus.loading,
       'is-success': validateStatus.state === 'success',
-      'is-error': validateStatus.state === 'error'
+      'is-error': validateStatus.state === 'error',
+      'is-required': isRequired
     }"
   >
     <label class="vk-form-item__label">
@@ -72,6 +73,11 @@ const itemRules = computed(() => {
     return [];
   }
 });
+
+/** 是否必须 */
+const isRequired = computed(() =>
+  itemRules.value.some((rule) => rule.required)
+);
 
 const getTriggeredRules = (trigger?: string) => {
   if (itemRules.value) {
