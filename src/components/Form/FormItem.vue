@@ -13,6 +13,7 @@
 import { computed, inject } from 'vue';
 import { formContextKey, type FormItemProps } from './types';
 import { isNil } from 'lodash-es';
+import Schema from 'async-validator';
 
 defineOptions({
   name: 'VkFormItem'
@@ -31,7 +32,7 @@ const innerValue = computed(() => {
   }
 });
 
-const innerRules = computed(() => {
+const itemRules = computed(() => {
   const rules = formContext?.model;
   if (rules && props.prop && rules[props.prop]) {
     return rules[props.prop];
@@ -39,4 +40,21 @@ const innerRules = computed(() => {
     return [];
   }
 });
+
+const validate = () => {
+  const modelName = props.prop;
+  if (modelName) {
+    const validator = new Schema({
+      [modelName]: itemRules.value
+    });
+    validator
+      .validate({ [modelName]: innerValue.value })
+      .then(() => {
+        console.log('no error');
+      })
+      .catch((e) => {
+        console.log(e.errors);
+      });
+  }
+};
 </script>

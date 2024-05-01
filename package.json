@@ -51,7 +51,8 @@
     "@fortawesome/fontawesome-svg-core": "^6.5.1",
     "@fortawesome/free-solid-svg-icons": "^6.5.1",
     "@fortawesome/vue-fontawesome": "^3.0.6",
-    "@popperjs/core": "^2.11.6"
+    "@popperjs/core": "^2.11.6",
+    "async-validator": "^4.2.5"
   },
   "peerDependencies": {
     "vue": "^3.4.21"
